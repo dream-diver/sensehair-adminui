@@ -5,7 +5,4 @@ export default {
     authToken(state){
         return state.authToken
     },
-    pagination(state){
-        return state.pagination
-    }
 }

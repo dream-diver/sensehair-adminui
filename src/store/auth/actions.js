@@ -1,4 +1,4 @@
-import router from './../router/index'
+import router from '@/router/index'
 
 export default {
     // async fetchLoggedInUserData(context){
@@ -21,7 +21,7 @@ export default {
             if (Object.keys(user).length === 0 || options.force === true) {
                 if(context.getters.authToken){
                     await axios.get('api/user').then((response) => {
-                        context.commit('setLoggedInUserData', response.data)
+                        context.dispatch('setLoggedInUserData', response.data)
                         resolve()
                     }).catch(error => {
                         if (error.response.status == 401) {
@@ -44,11 +44,7 @@ export default {
     },
 
     removeLoggedInUser(context){
-        context.commit('setLoggedInUserData', {})
-    },
-
-    setPaginationData(context, payload){
-        context.commit('setPaginationData', payload)
+        context.dispatch('setLoggedInUserData', {})
     },
 
     setAuthToken(context, payload){

@@ -1,10 +1,4 @@
 export default {
-    setAuthToken(state, payload){
-        state.authToken = payload
-    },
-    setLoggedInUserData(state, payload){
-        state.loggedInUser = payload
-    },
     setPaginationData(state, payload){
         state.pagination.current_page = payload.current_page
         state.pagination.last_page = payload.last_page

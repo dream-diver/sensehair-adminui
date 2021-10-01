@@ -2,6 +2,7 @@ import Vue from 'vue'
 import './plugins/vuetify'
 import './plugins/axios'
 import router from './router'
+import store from './store'
 
 import BootstrapVue from "bootstrap-vue"
 
@@ -22,8 +23,9 @@ Vue.component('userpages-layout', Pages);
 Vue.component('apps-layout', Apps);
 
 new Vue({
-  el: '#app',
-  router,
-  template: '<App/>',
-  components: { App }
+    el: '#app',
+    router,
+    store,
+    template: '<App/>',
+    components: { App }
 });

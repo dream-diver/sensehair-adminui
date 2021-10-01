@@ -1,16 +1,20 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
-import state from './state'
-import mutations from './mutations'
-import actions from './actions'
-import getters from './getters'
+import createPersistedState from "vuex-persistedstate";
+import auth from './auth'
+import pagination from './pagination'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state,
-    mutations,
-    actions,
-    getters
+    modules: {
+        auth,
+        pagination
+    },
+
+    plugins: [createPersistedState({
+        paths: [
+            'auth',
+        ]
+    })],
 })

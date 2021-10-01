@@ -1,7 +1,4 @@
-export default {
-    authToken: null,
-    loggedInUser: {},
-
+export default () => ({
     pagination: {
         current_page: 1,
         last_page: 1,
@@ -21,4 +18,4 @@ export default {
         ],
 
     },
-}
+})
