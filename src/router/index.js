@@ -66,7 +66,7 @@ const router =  new Router({
         //     },
         //     component: () => import('../pages/bookings/edit.vue'),
         // },
-        //
+
         // // Testing routes
         // {
         //     path: '/loading',
@@ -83,9 +83,9 @@ authRoutes.forEach(item => item.meta.layout = 'default')
 
 function isLoggedIn(){
     // const token = window.localStorage.getItem('auth_token')
-    const token = store.getters.authToken
+    const token = store.getters["auth/authToken"]
     if (token) {
-        store.dispatch('fetchLoggedInUserData')
+        store.dispatch('auth/fetchLoggedInUserData')
         return true
     } else {
         return false
@@ -106,10 +106,10 @@ router.beforeEach((to, from, next) => {
     }
     else if (to.matched.some(record => record.meta.requireVisitor)) {
         // this route requires visitor, check if logged in
-        // if not, redirect to login page.
+        // if not, redirect to bookings page.
         if (isLoggedIn()) {
             next({
-                name: 'packages.index',
+                name: 'bookings.index',
             })
         }else{
             next()

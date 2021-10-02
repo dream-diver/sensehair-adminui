@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import './plugins/vuetify'
-import './plugins/axios'
+import axios from './plugins/axios'
 import router from './router'
 import store from './store'
 
@@ -16,6 +16,7 @@ import Apps from './Layout/Wrappers/appLayout.vue';
 Vue.config.productionTip = false;
 
 Vue.use(BootstrapVue);
+window.axios = axios
 
 Vue.component('default-layout', Default);
 Vue.component('loading-layout', Loading);

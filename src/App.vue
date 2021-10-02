@@ -22,10 +22,6 @@ export default {
         // ]),
     },
     mounted(){
-        // setInterval(()=> {
-        //     this.$store.commit("auth/setAuthToken", this.authToken + 1)
-        //     console.log(this.authToken);
-        // }, 1000)
     }
 };
 </script>

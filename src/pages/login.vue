@@ -21,8 +21,8 @@
                                     <b-row form>
                                         <b-col md="6">
                                             <b-form-group>
-                                                <Label for="identity">Email or Username</Label>
-                                                <b-form-input type="text"  v-model="loginForm.identity" id="identity" placeholder="Email or Username" />
+                                                <Label for="email">Email</Label>
+                                                <b-form-input type="text"  v-model="loginForm.email" id="email" placeholder="Email or Username" />
                                             </b-form-group>
                                         </b-col>
                                         <b-col md="6">
@@ -57,7 +57,7 @@ export default {
     },
     data: () => ({
         loginForm: {
-            identity: '',
+            email: '',
             password: '',
         },
 
@@ -74,14 +74,13 @@ export default {
                 // console.log('login response');
                 // console.log(response);
                 const token = response.data.token
-                window.localStorage.setItem('auth_token', token)
-                this.$store.dispatch('setAuthToken', token)
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                // window.localStorage.setItem('auth_token', token)
+                this.$store.dispatch('auth/setAuthToken', token)
+                // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             } ).then( async () => {
                 // set logged in user data in the store
-                await this.$store.dispatch('setLoggedInUserData')
-                this.$router.push({name: 'dashboard'})
-                // console.log(this.$store.getters.loggedInUser);
+                await this.$store.dispatch('auth/fetchLoggedInUserData')
+                this.$router.push('/')
             } ).catch( error => {
             } )
         },
