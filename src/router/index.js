@@ -67,6 +67,40 @@ const router =  new Router({
         //     component: () => import('../pages/bookings/edit.vue'),
         // },
 
+        // Users pages
+        {
+            path: '/users',
+            name: 'users.index',
+            meta: { 
+                requiresAuth: true,
+            },
+            component: () => import('../pages/users/index.vue'),
+        },
+        // {
+        //     path: '/users/create',
+        //     name: 'users.create',
+        //     meta: { 
+        //         requiresAuth: true,
+        //     },
+        //     component: () => import('../pages/users/create.vue'),
+        // },
+        {
+            path: '/users/:id',
+            name: 'users.show',
+            meta: { 
+                requiresAuth: true,
+            },
+            component: () => import('../pages/users/show.vue'),
+        },
+        // {
+        //     path: '/users/edit/:id',
+        //     name: 'users.edit',
+        //     meta: { 
+        //         requiresAuth: true,
+        //     },
+        //     component: () => import('../pages/users/edit.vue'),
+        // },
+
         // // Testing routes
         // {
         //     path: '/loading',

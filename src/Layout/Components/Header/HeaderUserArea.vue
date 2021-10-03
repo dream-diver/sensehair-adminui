@@ -549,6 +549,7 @@ export default {
     methods: {
         logout () {
             axios.post('api/logout').then( response => {
+                this.$store.dispatch('auth/removeAuthToken')
                 this.$store.dispatch('auth/removeLoggedInUser')
                 this.$router.push({name: 'login'})
             })

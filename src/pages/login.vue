@@ -36,7 +36,7 @@
                                     <div class="divider"></div>
                                     <div class="d-flex align-items-center">
                                         <div class="ml-auto">
-                                            <a href="javascript:void(0);" class="btn-lg btn btn-link"> Recover Password </a>
+                                            <!-- <a href="javascript:void(0);" class="btn&#45;lg btn btn&#45;link"> Recover Password </a> -->
                                             <b-button type="submit" variant="primary" size="lg">Login to Dashboard</b-button>
                                         </div>
                                     </div>

@@ -4,6 +4,20 @@ export const adminMenuLinks = [
         title: "Main Navigation"
     },
     {
+        title: "Users",
+        icon: "pe-7s-user",
+        child: [
+            {
+                href: "/users",
+                title: "Manage Users"
+            },
+            {
+                href: "/users/create",
+                title: "Add Users"
+            },
+        ]
+    },
+    {
         title: "Bookings",
         icon: "pe-7s-user",
         child: [
