@@ -14,9 +14,6 @@
         <layout-wrapper>
             <v-container fluid>
                 <card heading="Add a new User Account" subheading="" >
-                    <template v-slot:actions>
-                        <p>sssssss</p>
-                    </template>
                     <v-layout>
                         <v-flex xs12 md6>
                             <v-container pb-0 fluid>

@@ -18,31 +18,35 @@
                     <v-layout>
                         <v-flex xs12 md6>
                             <v-container pb-0 fluid>
-                                <h5><b>Login Information</b></h5>
+                                <h5><b>Basic Info</b></h5>
                             </v-container>
                         </v-flex>
                     </v-layout>
-                    <v-layout>
-                        <v-flex xs12 md6>
-                            <v-container fluid>
-                                <v-text-field v-model="editUserFields.name" :rules="formValidationRules.nameRules" label="Name" required></v-text-field>
-                                <v-text-field v-model="editUserFields.email" :rules="formValidationRules.emailRules" label="Email" required></v-text-field>
-                            </v-container>
-                        </v-flex>
-                        <v-flex xs12 md6>
-                            <v-container fluid>
-                                <v-text-field v-model="editUserFields.phone" :rules="formValidationRules.phoneRules" label="Phone" required></v-text-field>
-                                <v-text-field v-model="editUserFields.password" :rules="formValidationRules.passwordRules" label="Password"></v-text-field>
-                            </v-container>
-                        </v-flex>
-                    </v-layout>
+                        <v-layout>
+                            <v-flex xs12 md6>
+                                <v-container fluid>
+                                    <v-text-field v-model="addUserFields.name" :rules="formValidationRules.nameRules" label="Name" required></v-text-field>
+                                    <v-text-field v-model="addUserFields.email" :rules="formValidationRules.emailRules" label="Email" required></v-text-field>
+                                    <v-select
+                                        v-model="addUserFields.role"
+                                        :items="['customer', 'stylist']"
+                                        label="Role"
+                                        ></v-select>
+                                </v-container>
+                            </v-flex>
+                            <v-flex xs12 md6>
+                                <v-container fluid>
+                                    <v-text-field v-model="addUserFields.phone" :rules="formValidationRules.phoneRules" label="Phone" required></v-text-field>
+                                    <v-text-field type="password" v-model="addUserFields.password" :rules="formValidationRules.passwordRules" label="Password"></v-text-field>
+                                </v-container>
+                            </v-flex>
+                        </v-layout>
                     <v-container fluid>
-                        <b-button @click="editUserSubmitted(editUserFields.id)" class="mr-2 mb-2" :variant="formIsValid? 'success':'danger'" :disabled="formIsValid ? false:true">{{formIsValid ? 'Submit': 'Invalid Inputs'}}</b-button>
+                        <b-button @click="addUserSubmitted" class="mr-2 mb-2" :variant="formIsValid? 'success':'danger'" :disabled="formIsValid ? false:true">{{formIsValid ? 'Add User': 'Invalid Inputs'}}</b-button>
                     </v-container>
                 </v-form>
                 </card>
             </v-container>
-
 
         </layout-wrapper>
     </div>
@@ -55,7 +59,7 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-library.add(faList);
+library.add( faList);
 
 import PageTitle from "@/Layout/Components/PageTitle.vue";
 import LayoutWrapper from "@/Layout/Components/LayoutWrapper";
@@ -66,11 +70,12 @@ export default {
         PageTitle,
         "layout-wrapper": LayoutWrapper,
         Card,
-        FontAwesomeIcon,
+        FontAwesomeIcon
     },
 
     data: () => ({
-        editUserFields: {
+        addUserFields: {
+            role: 'customer'
         },
         formIsValid: false,
         formValidationRules: {
@@ -84,34 +89,26 @@ export default {
             ]
         },
         pageTitle: {
-            heading: "Edit Users",
-            subheading:
-            "To edit users please fill up the form below. Once you have created a new users you need to add CAMPAIGN to send leads to a users.",
+            heading: "Add Users",
+            subheading: "To add new users please fill up the form below. Once you have created a new users you need to add CAMPAIGN to send leads to a users.",
             icon: "pe-7s-plane icon-gradient bg-tempting-azure",
-            createNewLink: {name: 'user.create'},
         },
         email: "",
     }),
     computed: {
     },
-    created(){
-        this.getUserData(this.$route.params.id)
+    mounted(){
     },
 
     methods: {
-        getUserData(id){
-            var link = `api/users/${id}`
-            axios.get(link).then(({data}) => {
-                this.editUserFields = data.user.data
-            })
-        },
-        editUserSubmitted(id){
+        addUserSubmitted(e){
             this.$refs.form.validate()
 
             if (this.formIsValid) {
-                var link = `api/users/${id}`
-                axios.patch(link, this.editUserFields).then( response => {
-                    this.getUserData(id)
+                var link = "api/users"
+                axios.post(link, this.addUserFields).then( response => {
+                    this.$refs.form.reset()
+                    this.addUserFields = {}
                 } )
             }
         }

@@ -76,14 +76,14 @@ const router =  new Router({
             },
             component: () => import('../pages/users/index.vue'),
         },
-        // {
-        //     path: '/users/create',
-        //     name: 'users.create',
-        //     meta: { 
-        //         requiresAuth: true,
-        //     },
-        //     component: () => import('../pages/users/create.vue'),
-        // },
+        {
+            path: '/users/create',
+            name: 'users.create',
+            meta: { 
+                requiresAuth: true,
+            },
+            component: () => import('../pages/users/create.vue'),
+        },
         {
             path: '/users/:id',
             name: 'users.show',
