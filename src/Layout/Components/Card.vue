@@ -1,6 +1,6 @@
 <template>
     <div class="card main-card">
-        <div class="card-header p-3 h-auto d-block">
+        <div class="card-header p-3 d-block">
             <v-layout>
                 <v-flex xs12 md10>
                     <div class="d-block">{{heading}}</div>

@@ -85,6 +85,7 @@ export default {
             var link = `api/users/${id}`
             axios.get(link).then(({data}) => {
                 this.showUserFields = data.user.data
+                console.log(this.showUserFields);
             })
         },
     }

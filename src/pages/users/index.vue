@@ -11,7 +11,16 @@
         <layout-wrapper>
             <card :heading="this.pagination.message" subheading="" >
                 <template v-slot:actions>
-                    <b-form-select v-model="thisPagination.per_page" @change="numOfRowsChanged" :options="pagination.numOfRowsOptions" size="sm" class="mt-0"></b-form-select>
+                    <v-layout>
+                        <!-- <v&#45;flex xs12 md6> -->
+                            <b-form-select v-model="thisPagination.per_page" @change="numOfRowsChanged" :options="pagination.numOfRowsOptions" size="sm" class="mt-0"></b-form-select>
+                        <!-- </v&#45;flex> -->
+                        <!-- <v&#45;flex xs12 md6> -->
+                            <b-form-select v-model="selectedRole" @change="selectedRoleChanged" :options="roleList" size="sm" class="ml-2 text-capitalize"></b-form-select>
+                        <!-- </v&#45;flex> -->
+                    </v-layout>
+                    <!-- <b&#45;form&#45;select v&#45;model="thisPagination.per_page" @change="numOfRowsChanged" :options="pagination.numOfRowsOptions" size="sm" class="mt&#45;0"></b&#45;form&#45;select> -->
+                    <!-- <b&#45;form&#45;select v&#45;model="selectedRole" @change="selectedRoleChanged" :options="roleList" size="sm" class="mt&#45;0"></b&#45;form&#45;select> -->
                 </template>
                 <v-data-table
                     :headers="headers"
@@ -97,6 +106,8 @@ export default {
         usersDataLoaded: false,
         deleteUserDialogueVisible: false,
         deleteUserCandidate: null,
+        roleList: ['customer', 'stylist'],
+        selectedRole: 'customer',
         thisPagination: {
             current_page: 1,
             per_page: 10,
@@ -123,7 +134,7 @@ export default {
         getUsersData () {
             var link = "api/users"
             var params = {
-                role: 'customer',
+                role: this.selectedRole,
                 page: this.thisPagination.current_page,
                 limit: this.thisPagination.per_page
             }
@@ -163,6 +174,9 @@ export default {
             this.getUsersData()
         },
         numOfRowsChanged(){
+            this.getUsersData()
+        },
+        selectedRoleChanged(){
             this.getUsersData()
         },
     }

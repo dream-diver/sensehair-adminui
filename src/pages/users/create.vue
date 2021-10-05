@@ -29,7 +29,7 @@
                                     <v-text-field v-model="addUserFields.email" :rules="formValidationRules.emailRules" label="Email" required></v-text-field>
                                     <v-select
                                         v-model="addUserFields.role"
-                                        :items="['customer', 'stylist']"
+                                        :items="roleList"
                                         label="Role"
                                         ></v-select>
                                 </v-container>
@@ -77,6 +77,7 @@ export default {
         addUserFields: {
             role: 'customer'
         },
+        roleList: ['customer', 'stylist'],
         formIsValid: false,
         formValidationRules: {
             nameRules: [v => !!v || 'Name is required'],
@@ -109,6 +110,7 @@ export default {
                 axios.post(link, this.addUserFields).then( response => {
                     this.$refs.form.reset()
                     this.addUserFields = {}
+                    this.$router.push({name: 'users.index'})
                 } )
             }
         }
