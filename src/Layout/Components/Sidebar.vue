@@ -23,7 +23,8 @@
 <script>
 import { SidebarMenu } from "vue-sidebar-menu";
 import VuePerfectScrollbar from "vue-perfect-scrollbar";
-import { adminMenuLinks } from './sideBarMenuLinks.js'
+import { adminMenuLinks, stylistMenuLinks, customerMenuLinks } from './sideBarMenuLinks.js'
+import { mapGetters } from 'vuex'
 
 export default {
     components: {
@@ -35,12 +36,27 @@ export default {
             isOpen: false,
             sidebarActive: false,
 
-            menu: adminMenuLinks,
+            // menu: adminMenuLinks,
 
             collapsed: true,
 
             windowWidth: 0
         };
+    },
+    computed: {
+        ...mapGetters('auth', [
+            'loggedInUser'
+        ]),
+        menu(){
+            const loggedInRole = this.loggedInUser.data.role
+            if(loggedInRole === 'admin') {
+                return adminMenuLinks
+            } else if(loggedInRole === 'stylist') {
+                return stylistMenuLinks
+            } else {
+                return customerMenuLinks
+            }
+        }
     },
     props: {
         sidebarbg: String
