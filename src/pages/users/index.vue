@@ -57,14 +57,20 @@
 
                 <v-dialog v-model="deleteUserDialogueVisible" max-width="290">
                     <v-card>
-                        <v-card-title class="headline">Delete User</v-card-title>
+                        <v-card-title class="headline justify-content-center">Delete User</v-card-title>
 
-                        <v-card-text>Are You sure you want to delete this User?</v-card-text>
+                        <v-card-text class="justify-content-center">Are You sure you want to delete this User?</v-card-text>
 
                         <v-card-actions>
                             <v-container fluid>
-                                <v-btn color="error" @click="deleteUserConfirmed">Yes, Delete It.</v-btn>
-                                <v-btn color="success" @click="deleteUserDialogueVisible = false">Not Sure</v-btn>
+                                <v-layout class="justify-content-center">
+                                    <button type="button" @click="deleteUserConfirmed" class="btn btn-danger mr-2">
+                                        Yes, Delete It
+                                    </button>
+                                    <button type="button" @click="deleteUserDialogueVisible = false" class="btn btn-success">
+                                        Not Sure
+                                    </button>
+                                </v-layout>
                             </v-container>
                         </v-card-actions>
                     </v-card>
