@@ -1,10 +1,16 @@
 <template>
     <div>
-        <page-title :heading="pageTitle.heading" :subheading="pageTitle.subheading" :icon="pageTitle.icon" :createNewLink="pageTitle.createNewLink"></page-title>
+        <page-title :heading="pageTitle.heading" :subheading="pageTitle.subheading" :icon="pageTitle.icon">
+            <template v-slot:actions>
+                <button type="button" @click="$router.push({name: 'users.create'})" class="btn-shadow d-inline-flex align-items-center btn btn-success mr-2">
+                    <font-awesome-icon class="mr-2" icon="plus" /> Create User
+                </button>
+            </template>
+        </page-title>
 
         <layout-wrapper>
             <card :heading="this.pagination.message" subheading="" >
-                <template v-slot:numOfRows>
+                <template v-slot:actions>
                     <b-form-select v-model="thisPagination.per_page" @change="numOfRowsChanged" :options="pagination.numOfRowsOptions" size="sm" class="mt-0"></b-form-select>
                 </template>
                 <v-data-table
@@ -15,14 +21,16 @@
                     :loading="!usersDataLoaded"
                     >
                     <template v-slot:items="props">
-                        <td class="">{{ props.item.name }}</td>
-                        <td class="">{{ props.item.email }}</td>
-                        <td class="">{{ props.item.phone }}</td>
-                        <td class="justify-center align-items-center layout px-0">
-                            <a @click.prevent="showUser(props.item)"> <v-icon small class="mr-2" > mdi-eye </v-icon> </a>
-                            <a @click.prevent="editUser(props.item)" > <v-icon small class="mr-2" > edit </v-icon> </a>
-                            <a @click.prevent="deleteUserClicked(props.item)"> <v-icon small> delete </v-icon> </a>
-                        </td>
+                        <tr>
+                            <td @click="showUser(props.item)" class="">{{ props.item.name }}</td>
+                            <td @click="showUser(props.item)" class="">{{ props.item.email }}</td>
+                            <td @click="showUser(props.item)" class="">{{ props.item.phone }}</td>
+                            <td class="justify-center align-items-center layout px-0">
+                                <a @click.prevent="showUser(props.item)"> <v-icon small class="mr-2" > mdi-eye </v-icon> </a>
+                                <a @click.prevent="editUser(props.item)" > <v-icon small class="mr-2" > edit </v-icon> </a>
+                                <a @click.prevent="deleteUserClicked(props.item)"> <v-icon small> delete </v-icon> </a>
+                            </td>
+                        </tr>
                     </template>
                     <template v-slot:no-data>
                         <h5 v-if="!usersDataLoaded" class="text-primary text-center">Loading...</h5>
@@ -61,6 +69,11 @@
 </style>
 
 <script>
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+library.add(faPlus);
+
 import { mapGetters } from 'vuex'
 import PageTitle from "@/Layout/Components/PageTitle.vue";
 import LayoutWrapper from "@/Layout/Components/LayoutWrapper";
@@ -71,6 +84,7 @@ export default {
         PageTitle,
         "layout-wrapper": LayoutWrapper,
         Card,
+        FontAwesomeIcon,
     },
 
     data: () => ({
@@ -78,7 +92,6 @@ export default {
             heading: "Manage Users",
             subheading: "Bellow all the Users listed. To take necessary action choose action under actions tab.",
             icon: "pe-7s-plane icon-gradient bg-tempting-azure",
-            createNewLink: {name: 'users.create'},
         },
         usersData: [],
         usersDataLoaded: false,

@@ -7,7 +7,7 @@
                 </v-flex>
                 <v-flex xs12 md2>
                     <div class="d-block text-capitalize">
-                        <slot name="numOfRows"></slot>
+                        <slot name="actions"></slot>
                     </div>
                 </v-flex>
             </v-layout>

@@ -92,14 +92,14 @@ const router =  new Router({
             },
             component: () => import('../pages/users/show.vue'),
         },
-        // {
-        //     path: '/users/edit/:id',
-        //     name: 'users.edit',
-        //     meta: { 
-        //         requiresAuth: true,
-        //     },
-        //     component: () => import('../pages/users/edit.vue'),
-        // },
+        {
+            path: '/users/:id/edit',
+            name: 'users.edit',
+            meta: { 
+                requiresAuth: true,
+            },
+            component: () => import('../pages/users/edit.vue'),
+        },
 
         // // Testing routes
         // {
