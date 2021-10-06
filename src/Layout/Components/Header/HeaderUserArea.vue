@@ -7,7 +7,7 @@
                         <b-dropdown toggle-class="p-0 mr-2" menu-class="dropdown-menu-lg" variant="link" no-caret right>
                             <span slot="button-content">
                                 <div class="icon-wrapper icon-wrapper-alt rounded-circle">
-                                    <img width="42" class="rounded-circle" src="@/assets/images/avatars/1.jpg" alt />
+                                    <img width="42" class="rounded-circle" src="@/assets/images/avatars/user-blue.png" alt />
                                 </div>
                             </span>
                             <div class="dropdown-menu-header">
@@ -17,11 +17,11 @@
                                         <div class="widget-content p-0">
                                             <div class="widget-content-wrapper">
                                                 <div class="widget-content-left mr-3">
-                                                    <img width="42" class="rounded-circle" src="@/assets/images/avatars/1.jpg" alt />
+                                                    <img width="42" class="rounded-circle" src="@/assets/images/avatars/user-blue.png" alt />
                                                 </div>
                                                 <div class="widget-content-left">
-                                                    <div class="widget-heading">Alina Mcloughlin</div>
-                                                    <div class="widget-subheading opacity-8">A short profile description</div>
+                                                    <div class="widget-heading">{{ loggedInUser.data ? loggedInUser.data.name : '' }}</div>
+                                                    <div class="widget-subheading opacity-8">{{ loggedInUser.data ? loggedInUser.data.role : '' }}</div>
                                                 </div>
                                                 <div class="widget-content-right mr-2">
                                                     <button @click="logout" class="btn-pill btn-shadow btn-shine btn btn-focus">Logout</button>
@@ -35,7 +35,7 @@
                     </div>
                     <div class="widget-content-left ml-3 header-user-info">
                         <div class="widget-heading">{{ loggedInUser.data ? loggedInUser.data.name : '' }}</div>
-                        <div class="widget-subheading">VP People Manager</div>
+                        <div class="widget-subheading">{{ loggedInUser.data ? loggedInUser.data.role : '' }}</div>
                     </div>
                 </div>
             </div>

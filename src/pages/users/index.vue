@@ -10,17 +10,15 @@
 
         <layout-wrapper>
             <card :heading="this.pagination.message" subheading="" >
-                <template v-slot:actions>
+                <template v-slot:action2>
                     <v-layout>
-                        <!-- <v&#45;flex xs12 md6> -->
-                            <b-form-select v-model="thisPagination.per_page" @change="numOfRowsChanged" :options="pagination.numOfRowsOptions" size="sm" class="mt-0"></b-form-select>
-                        <!-- </v&#45;flex> -->
-                        <!-- <v&#45;flex xs12 md6> -->
-                            <b-form-select v-model="selectedRole" @change="selectedRoleChanged" :options="roleList" size="sm" class="ml-2 text-capitalize"></b-form-select>
-                        <!-- </v&#45;flex> -->
+                        <b-form-select v-model="thisPagination.per_page" @change="numOfRowsChanged" :options="pagination.numOfRowsOptions" size="sm" class="mt-0"></b-form-select>
                     </v-layout>
-                    <!-- <b&#45;form&#45;select v&#45;model="thisPagination.per_page" @change="numOfRowsChanged" :options="pagination.numOfRowsOptions" size="sm" class="mt&#45;0"></b&#45;form&#45;select> -->
-                    <!-- <b&#45;form&#45;select v&#45;model="selectedRole" @change="selectedRoleChanged" :options="roleList" size="sm" class="mt&#45;0"></b&#45;form&#45;select> -->
+                </template>
+                <template v-slot:action1>
+                    <v-layout>
+                        <b-form-select v-model="selectedRole" @change="selectedRoleChanged" :options="roleList" size="sm" class="ml-2 text-capitalize"></b-form-select>
+                    </v-layout>
                 </template>
                 <v-data-table
                     :headers="headers"
