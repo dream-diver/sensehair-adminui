@@ -23,6 +23,7 @@
                 <v-data-table
                     :headers="headers"
                     :items="usersData"
+                    :disable-initial-sort="true"
                     hide-actions
                     class="elevation-1"
                     :loading="!usersDataLoaded"

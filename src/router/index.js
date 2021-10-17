@@ -29,7 +29,7 @@ const router =  new Router({
             },
             // component: () => import('../DemoPages/Dashboards/analytics.vue'),
             redirect: {
-                name: 'bookings.index'
+                name: 'users.index'
             }
         },
 
