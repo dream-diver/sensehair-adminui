@@ -5,31 +5,13 @@ export const adminMenuLinks = [
     },
     {
         title: "Users",
-        icon: "pe-7s-user",
-        child: [
-            {
-                href: "/users",
-                title: "Manage Users"
-            },
-            {
-                href: "/users/create",
-                title: "Add Users"
-            },
-        ]
+        href: "/users",
+        icon: "pe-7s-users",
     },
     {
         title: "Bookings",
-        icon: "pe-7s-user",
-        child: [
-            {
-                href: "/bookings",
-                title: "Manage Bookings"
-            },
-            {
-                href: "/bookings/create",
-                title: "Add Bookings"
-            },
-        ]
+        href: "/bookings",
+        icon: "pe-7s-note2",
     },
 ];
 
@@ -40,17 +22,8 @@ export const stylistMenuLinks = [
     },
     {
         title: "Bookings",
-        icon: "pe-7s-user",
-        child: [
-            {
-                href: "/bookings",
-                title: "Manage Bookings"
-            },
-            {
-                href: "/bookings/create",
-                title: "Add Bookings"
-            },
-        ]
+        href: "/bookings",
+        icon: "pe-7s-note2",
     },
 ];
 
