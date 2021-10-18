@@ -101,6 +101,40 @@ const router =  new Router({
             component: () => import('../pages/users/edit.vue'),
         },
 
+        // Services pages
+        {
+            path: '/services',
+            name: 'services.index',
+            meta: { 
+                requiresAuth: true,
+            },
+            component: () => import('../pages/services/index.vue'),
+        },
+        {
+            path: '/services/create',
+            name: 'services.create',
+            meta: { 
+                requiresAuth: true,
+            },
+            component: () => import('../pages/services/create.vue'),
+        },
+        // {
+        //     path: '/services/:id',
+        //     name: 'services.show',
+        //     meta: { 
+        //         requiresAuth: true,
+        //     },
+        //     component: () => import('../pages/services/show.vue'),
+        // },
+        // {
+        //     path: '/services/:id/edit',
+        //     name: 'services.edit',
+        //     meta: { 
+        //         requiresAuth: true,
+        //     },
+        //     component: () => import('../pages/services/edit.vue'),
+        // },
+
         // // Testing routes
         // {
         //     path: '/loading',

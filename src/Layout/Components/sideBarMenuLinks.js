@@ -13,6 +13,11 @@ export const adminMenuLinks = [
         href: "/bookings",
         icon: "pe-7s-note2",
     },
+    {
+        title: "Services",
+        href: "/services",
+        icon: "pe-7s-note2",
+    },
 ];
 
 export const stylistMenuLinks = [

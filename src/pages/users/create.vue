@@ -91,7 +91,7 @@ export default {
         },
         pageTitle: {
             heading: "Add Users",
-            subheading: "To add new users please fill up the form below. Once you have created a new users you need to add CAMPAIGN to send leads to a users.",
+            subheading: "To add new users please fill up the form below.",
             icon: "pe-7s-plane icon-gradient bg-tempting-azure",
         },
         email: "",
