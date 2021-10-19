@@ -19,15 +19,33 @@
                         <v-flex xs12 md6>
                             <v-container fluid>
                                 <v-text-field v-model="addServiceFields.name" :rules="formValidationRules.nameRules" label="Name" required></v-text-field>
-                                <v-text-field v-model="addServiceFields.duration" :rules="formValidationRules.durationRules" label="Duration" required></v-text-field>
+                                <v-text-field type="number" v-model="addServiceFields.duration" :rules="formValidationRules.durationRules" label="Duration" required></v-text-field>
                             </v-container>
                         </v-flex>
                         <v-flex xs12 md6>
                             <v-container fluid>
-                                <v-text-field v-model="addServiceFields.price" :rules="formValidationRules.priceRules" label="Price" required></v-text-field>
+                                <v-text-field type="number" v-model="addServiceFields.price" :rules="formValidationRules.priceRules" label="Price" required></v-text-field>
                             </v-container>
                         </v-flex>
                     </v-layout>
+
+                    <v-layout>
+                        <v-flex md6 class="mx-auto">
+                            <v-container class="py-1" v-for="stylist in stylists" :key="stylist.id" >
+                                <v-layout>
+                                    <v-flex md5>
+                                        <b-form-checkbox v-model="stylist.selected" size="lg" >
+                                            {{ stylist.name }}
+                                        </b-form-checkbox>
+                                    </v-flex>
+                                    <v-flex md2>
+                                        <b-form-input :disabled="!stylist.selected" type="number" v-model="stylist.stylist_charge" placeholder="Charge"></b-form-input>
+                                    </v-flex>
+                                </v-layout>
+                            </v-container>
+                        </v-flex>
+                    </v-layout>
+
                     <v-container fluid>
                         <b-button @click="addServiceSubmitted" class="mr-2 mb-2" :variant="formIsValid? 'success':'danger'" :disabled="formIsValid ? false:true">{{formIsValid ? 'Add Service': 'Invalid Inputs'}}</b-button>
                     </v-container>
@@ -48,6 +66,7 @@ import { faList } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add( faList);
 
+import _ from 'lodash'
 import PageTitle from "@/Layout/Components/PageTitle.vue";
 import LayoutWrapper from "@/Layout/Components/LayoutWrapper";
 import Card from "@/Layout/Components/Card";
@@ -63,6 +82,7 @@ export default {
     data: () => ({
         addServiceFields: {
         },
+        stylists: [],
         formIsValid: false,
         formValidationRules: {
             nameRules: [v => !!v || 'Name is required'],
@@ -84,22 +104,63 @@ export default {
     }),
     computed: {
     },
+    created(){
+        this.init()
+    },
     mounted(){
     },
 
     methods: {
+        init(){
+            var link = "api/users"
+            var params = {
+                role: 'stylist',
+                limit: 'all',
+            }
+            axios.get(link, {params}).then( ({data}) => {
+                var sanitizedData = data.data.map(i => {
+                    return {
+                        id: i.data.id,
+                        name: i.data.name,
+                        selected: i.data.selected,
+                        stylist_charge: null,
+                    }
+                })
+                this.stylists = _.cloneDeep(sanitizedData);
+
+                // this.usersData = sanitizedData
+                // this.usersDataLoaded = true
+                // this.$store.dispatch('pagination/setPaginationData', data.meta)
+
+            } ).catch( ({ data }) => {
+                this.usersDataLoaded = true
+            })
+        },
         addServiceSubmitted(e){
             this.$refs.form.validate()
 
             if (this.formIsValid) {
                 var link = "api/services"
-                axios.post(link, this.addServiceFields).then( response => {
+
+                const payload = this.sanitizeAddServiceFields()
+
+                axios.post(link, payload).then( response => {
+                    console.log(response.data);
                     this.$refs.form.reset()
                     this.addServiceFields = {}
                     this.$router.push({name: 'services.index'})
                 } )
             }
-        }
+        },
+        sanitizeAddServiceFields(){
+            return {
+                name: this.addServiceFields.name,
+                price: parseFloat(this.addServiceFields.price).toFixed(2),
+                duration: parseFloat(this.addServiceFields.duration).toFixed(2),
+
+                stylists: this.stylists.filter(i => i.selected).map(i => ({id: i.id, stylist_charge: i.stylist_charge}))
+            }
+        },
     }
 };
 </script>
