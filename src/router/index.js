@@ -118,14 +118,14 @@ const router =  new Router({
             },
             component: () => import('../pages/services/create.vue'),
         },
-        // {
-        //     path: '/services/:id',
-        //     name: 'services.show',
-        //     meta: { 
-        //         requiresAuth: true,
-        //     },
-        //     component: () => import('../pages/services/show.vue'),
-        // },
+        {
+            path: '/services/:id',
+            name: 'services.show',
+            meta: { 
+                requiresAuth: true,
+            },
+            component: () => import('../pages/services/show.vue'),
+        },
         // {
         //     path: '/services/:id/edit',
         //     name: 'services.edit',

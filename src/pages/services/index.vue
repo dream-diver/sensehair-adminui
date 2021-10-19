@@ -10,7 +10,7 @@
 
         <layout-wrapper>
             <card :heading="this.pagination.message" subheading="" >
-                <template v-slot:action2>
+                <template v-slot:action1>
                     <v-layout>
                         <b-form-select v-model="thisPagination.per_page" @change="numOfRowsChanged" :options="pagination.numOfRowsOptions" size="sm" class="mt-0"></b-form-select>
                     </v-layout>
