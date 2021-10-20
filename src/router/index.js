@@ -126,14 +126,14 @@ const router =  new Router({
             },
             component: () => import('../pages/services/show.vue'),
         },
-        // {
-        //     path: '/services/:id/edit',
-        //     name: 'services.edit',
-        //     meta: { 
-        //         requiresAuth: true,
-        //     },
-        //     component: () => import('../pages/services/edit.vue'),
-        // },
+        {
+            path: '/services/:id/edit',
+            name: 'services.edit',
+            meta: { 
+                requiresAuth: true,
+            },
+            component: () => import('../pages/services/edit.vue'),
+        },
 
         // // Testing routes
         // {

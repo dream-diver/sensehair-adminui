@@ -111,7 +111,7 @@ export default {
             if (this.formIsValid) {
                 var link = `api/users/${id}`
                 axios.patch(link, this.editUserFields).then( response => {
-                    this.getUserData(id)
+                    this.$router.push({name: 'users.index'})
                 } )
             }
         }

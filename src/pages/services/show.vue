@@ -46,7 +46,7 @@
                                             {{ stylist.data.name }}
                                         </v-flex>
                                         <v-flex md2>
-                                            €{{ stylist.data.pivot.stylist_charge }}
+                                            €{{ stylist.data.pivot.stylist_charge.toFixed(2) }}
                                         </v-flex>
                                     </v-layout>
                                 </div>

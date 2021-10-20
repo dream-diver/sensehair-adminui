@@ -11,9 +11,6 @@
         <layout-wrapper>
             <v-container fluid>
                 <card heading="Add a new Service" subheading="" >
-                <!-- <template v&#45;slot:selectNumOfRows> -->
-                <!--     <p>sssssss</p> -->
-                <!-- </template> -->
                 <v-form ref="form" v-model="formIsValid" lazy-validation>
                     <v-layout>
                         <v-flex xs12 md6>
@@ -122,18 +119,12 @@ export default {
                     return {
                         id: i.data.id,
                         name: i.data.name,
-                        selected: i.data.selected,
+                        selected: false,
                         stylist_charge: null,
                     }
                 })
                 this.stylists = _.cloneDeep(sanitizedData);
-
-                // this.usersData = sanitizedData
-                // this.usersDataLoaded = true
-                // this.$store.dispatch('pagination/setPaginationData', data.meta)
-
-            } ).catch( ({ data }) => {
-                this.usersDataLoaded = true
+            } ).catch( error => {
             })
         },
         addServiceSubmitted(e){
