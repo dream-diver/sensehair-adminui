@@ -22,34 +22,22 @@
                         </v-flex>
                     </v-layout>
                     <v-layout>
-                        <v-flex xs12 md6>
+                        <v-flex xs12 md4>
                             <v-container fluid>
                                 <v-text-field v-model="showServiceFields.name" label="Name" readonly="readonly"></v-text-field>
                                 <v-text-field v-model="showServiceFields.duration" label="Duration" readonly="readonly"></v-text-field>
                             </v-container>
                         </v-flex>
-                        <v-flex xs12 md6>
+                        <v-flex xs12 md4>
                             <v-container fluid>
-                                <v-text-field v-model="showServiceFields.price" label="Price" readonly="readonly"></v-text-field>
+                                <v-text-field v-model="showServiceFields.stylist_price" label="Stylist Price" readonly="readonly"></v-text-field>
+                                <v-text-field v-model="showServiceFields.art_director_price" label="Art Director Price" readonly="readonly"></v-text-field>
                             </v-container>
                         </v-flex>
-                    </v-layout>
-                    <v-layout>
-                        <v-flex xs12 md8 class="mx-auto">
-                            <v-subheader size="lg">
-                                Stylists
-                            </v-subheader>
-                            <v-container class="py-1">
-                                <div v-for="stylist in showServiceFields.stylists" :key="stylist.data.id">
-                                    <v-layout>
-                                        <v-flex md3>
-                                            {{ stylist.data.name }}
-                                        </v-flex>
-                                        <v-flex md2>
-                                            €{{ stylist.data.pivot.stylist_charge.toFixed(2) }}
-                                        </v-flex>
-                                    </v-layout>
-                                </div>
+                        <v-flex xs12 md4>
+                            <v-container fluid>
+                                <v-text-field v-model="showServiceFields.hair_size" label="Hair Size" readonly="readonly"></v-text-field>
+                                <v-text-field v-model="showServiceFields.hair_type" label="Hair Type" readonly="readonly"></v-text-field>
                             </v-container>
                         </v-flex>
                     </v-layout>
@@ -90,7 +78,6 @@ export default {
             subheading: "Below is the information listed for the selected service",
             icon: "pe-7s-plane icon-gradient bg-tempting-azure",
         },
-        email: "",
     }),
     computed: {
     },

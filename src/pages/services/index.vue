@@ -27,7 +27,8 @@
                         <tr>
                             <td @click="showService(props.item)" class="">{{ props.item.name }}</td>
                             <td @click="showService(props.item)" class="">{{ props.item.duration }} minutes</td>
-                            <td @click="showService(props.item)" class="">€{{ props.item.price }}</td>
+                            <td @click="showService(props.item)" class="">€{{ props.item.stylist_price }}</td>
+                            <td @click="showService(props.item)" class="">€{{ props.item.art_director_price }}</td>
                             <td class="justify-center align-items-center layout px-0">
                                 <a @click.prevent="showService(props.item)"> <v-icon small class="mr-2" > mdi-eye </v-icon> </a>
                                 <a @click.prevent="editService(props.item)" > <v-icon small class="mr-2" > edit </v-icon> </a>
@@ -114,7 +115,8 @@ export default {
         headers: [
             { text: 'Name', value: 'name' },
             { text: 'Duration', value: 'duration' },
-            { text: 'Price', value: 'price' },
+            { text: 'Stylist Price', value: 'stylist_price' },
+            { text: 'Art Director Price', value: 'art_director_price' },
             { text: 'Actions', value: 'actions' },
         ],
         /////////////////////////////////////////////////

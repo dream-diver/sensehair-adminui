@@ -13,32 +13,32 @@
                 <card heading="Add a new Service" subheading="" >
                 <v-form ref="form" v-model="formIsValid" lazy-validation>
                     <v-layout>
-                        <v-flex xs12 md6>
+                        <v-flex xs12 md4>
                             <v-container fluid>
                                 <v-text-field v-model="addServiceFields.name" :rules="formValidationRules.nameRules" label="Name" required></v-text-field>
                                 <v-text-field type="number" v-model="addServiceFields.duration" :rules="formValidationRules.durationRules" label="Duration" required></v-text-field>
                             </v-container>
                         </v-flex>
-                        <v-flex xs12 md6>
+                        <v-flex xs12 md4>
                             <v-container fluid>
-                                <v-text-field type="number" v-model="addServiceFields.price" :rules="formValidationRules.priceRules" label="Price" required></v-text-field>
+                                <v-text-field type="number" v-model="addServiceFields.stylist_price" :rules="formValidationRules.priceRules" label="Stylist Price" required></v-text-field>
+                                <v-text-field type="number" v-model="addServiceFields.art_director_price" :rules="formValidationRules.priceRules" label="Art Director Price" required></v-text-field>
                             </v-container>
                         </v-flex>
-                    </v-layout>
-
-                    <v-layout>
-                        <v-flex md6 class="mx-auto">
-                            <v-container class="py-1" v-for="stylist in stylists" :key="stylist.id" >
-                                <v-layout>
-                                    <v-flex md5>
-                                        <b-form-checkbox v-model="stylist.selected" size="lg" >
-                                            {{ stylist.name }}
-                                        </b-form-checkbox>
-                                    </v-flex>
-                                    <v-flex md2>
-                                        <b-form-input :disabled="!stylist.selected" type="number" v-model="stylist.stylist_charge" placeholder="Charge"></b-form-input>
-                                    </v-flex>
-                                </v-layout>
+                        <v-flex xs12 md4>
+                            <v-container fluid>
+                                    <v-select
+                                        v-model="addServiceFields.hair_size"
+                                        :rules="formValidationRules.hairSizeRules"
+                                        :items="hairSizes"
+                                        label="Hair Size"
+                                        ></v-select>
+                                    <v-select
+                                        v-model="addServiceFields.hair_type"
+                                        :rules="formValidationRules.hairTypeRules"
+                                        :items="hairTypes"
+                                        label="Hair Type"
+                                        ></v-select>
                             </v-container>
                         </v-flex>
                     </v-layout>
@@ -79,7 +79,8 @@ export default {
     data: () => ({
         addServiceFields: {
         },
-        stylists: [],
+        hairSizes: ['Men', 'Women Short Hair', 'Women Medium Hair', 'Women Long Hair'],
+        hairTypes: ['Straight', 'Wavy', 'Curly', 'Coily'],
         formIsValid: false,
         formValidationRules: {
             nameRules: [v => !!v || 'Name is required'],
@@ -90,6 +91,12 @@ export default {
             durationRules: [
                 v => !!v || "Duration is required",
                 v => /^\d+/.test(v) || "Duration must be valid"
+            ],
+            hairSizeRules: [
+                v => !!v || "Hair Size is required",
+            ],
+            hairTypeRules: [
+                v => !!v || "Hair Type is required",
             ]
         },
         pageTitle: {
@@ -109,23 +116,6 @@ export default {
 
     methods: {
         init(){
-            var link = "api/users"
-            var params = {
-                role: 'stylist',
-                limit: 'all',
-            }
-            axios.get(link, {params}).then( ({data}) => {
-                var sanitizedData = data.data.map(i => {
-                    return {
-                        id: i.data.id,
-                        name: i.data.name,
-                        selected: false,
-                        stylist_charge: null,
-                    }
-                })
-                this.stylists = _.cloneDeep(sanitizedData);
-            } ).catch( error => {
-            })
         },
         addServiceSubmitted(e){
             this.$refs.form.validate()
@@ -146,10 +136,11 @@ export default {
         sanitizeAddServiceFields(){
             return {
                 name: this.addServiceFields.name,
-                price: parseFloat(this.addServiceFields.price).toFixed(2),
                 duration: parseFloat(this.addServiceFields.duration).toFixed(2),
-
-                stylists: this.stylists.filter(i => i.selected).map(i => ({id: i.id, stylist_charge: i.stylist_charge}))
+                stylist_price: parseFloat(this.addServiceFields.stylist_price).toFixed(2),
+                art_director_price: parseFloat(this.addServiceFields.art_director_price).toFixed(2),
+                hair_size: this.addServiceFields.hair_size,
+                hair_type: this.addServiceFields.hair_type,
             }
         },
     }
