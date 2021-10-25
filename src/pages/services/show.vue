@@ -30,8 +30,8 @@
                         </v-flex>
                         <v-flex xs12 md4>
                             <v-container fluid>
-                                <v-text-field v-model="showServiceFields.stylist_price" label="Stylist Price" readonly="readonly"></v-text-field>
-                                <v-text-field v-model="showServiceFields.art_director_price" label="Art Director Price" readonly="readonly"></v-text-field>
+                                <v-text-field v-model="showServiceFields.stylist_price" label="Stylist Price(€)" readonly="readonly"></v-text-field>
+                                <v-text-field v-model="showServiceFields.art_director_price" label="Art Director Price(€)" readonly="readonly"></v-text-field>
                             </v-container>
                         </v-flex>
                         <v-flex xs12 md4>
@@ -90,7 +90,6 @@ export default {
             var link = `api/services/${id}`
             axios.get(link).then(({data}) => {
                 this.showServiceFields = data.service.data
-                console.log(this.showServiceFields);
             })
         },
     }
