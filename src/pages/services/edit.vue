@@ -35,6 +35,7 @@
                                         ></v-select>
                                     <v-select
                                         v-model="editServiceFields.hair_type"
+                                        v-show="editServiceFields.hair_size !== 'Men'"
                                         :rules="formValidationRules.hairTypeRules"
                                         :items="hairTypes"
                                         label="Hair Type"
@@ -121,9 +122,7 @@ export default {
             await this.getServiceData(this.$route.params.id)
         },
         editServiceSubmitted(id){
-            this.$refs.form.validate()
-
-            if (this.formIsValid) {
+            if (this.$refs.form.validate()) {
                 var link = `api/services/${id}`
 
                 const payload = this.sanitizeEditServiceFields()
@@ -140,7 +139,7 @@ export default {
                 stylist_price: parseFloat(this.editServiceFields.stylist_price).toFixed(2),
                 art_director_price: parseFloat(this.editServiceFields.art_director_price).toFixed(2),
                 hair_size: this.editServiceFields.hair_size,
-                hair_type: this.editServiceFields.hair_type,
+                hair_type: (this.editServiceFields.hair_size == 'Men')? null : this.editServiceFields.hair_type,
             }
         },
     }

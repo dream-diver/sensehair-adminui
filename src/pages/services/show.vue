@@ -37,7 +37,7 @@
                         <v-flex xs12 md4>
                             <v-container fluid>
                                 <v-text-field v-model="showServiceFields.hair_size" label="Hair Size" readonly="readonly"></v-text-field>
-                                <v-text-field v-model="showServiceFields.hair_type" label="Hair Type" readonly="readonly"></v-text-field>
+                                <v-text-field v-show="showServiceFields.hair_size !== 'Men'" v-model="showServiceFields.hair_type" label="Hair Type" readonly="readonly"></v-text-field>
                             </v-container>
                         </v-flex>
                     </v-layout>

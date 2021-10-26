@@ -34,8 +34,8 @@
                                         label="Hair Size"
                                         ></v-select>
                                     <v-select
+                                        v-show="addServiceFields.hair_size !== 'Men'"
                                         v-model="addServiceFields.hair_type"
-                                        :rules="formValidationRules.hairTypeRules"
                                         :items="hairTypes"
                                         label="Hair Type"
                                         ></v-select>
@@ -95,9 +95,6 @@ export default {
             hairSizeRules: [
                 v => !!v || "Hair Size is required",
             ],
-            hairTypeRules: [
-                v => !!v || "Hair Type is required",
-            ]
         },
         pageTitle: {
             heading: "Add Services",
@@ -118,15 +115,12 @@ export default {
         init(){
         },
         addServiceSubmitted(e){
-            this.$refs.form.validate()
-
-            if (this.formIsValid) {
+            if (this.$refs.form.validate()) {
                 var link = "api/services"
 
                 const payload = this.sanitizeAddServiceFields()
 
                 axios.post(link, payload).then( response => {
-                    console.log(response.data);
                     this.$refs.form.reset()
                     this.addServiceFields = {}
                     this.$router.push({name: 'services.index'})
@@ -140,7 +134,7 @@ export default {
                 stylist_price: parseFloat(this.addServiceFields.stylist_price).toFixed(2),
                 art_director_price: parseFloat(this.addServiceFields.art_director_price).toFixed(2),
                 hair_size: this.addServiceFields.hair_size,
-                hair_type: this.addServiceFields.hair_type,
+                hair_type: (this.addServiceFields.hair_size == 'Men')? null : this.addServiceFields.hair_type,
             }
         },
     }
