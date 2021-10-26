@@ -111,7 +111,12 @@ export default {
         usersDataLoaded: false,
         deleteUserDialogueVisible: false,
         deleteUserCandidate: null,
-        roleList: ['customer', 'stylist'],
+        // roleList: ['customer', 'stylist', 'art_director'],
+        roleList: [
+            { text: 'customer', value: 'customer' },
+            { text: 'stylist', value: 'stylist' },
+            { text: 'art director', value: 'art_director' },
+        ],
         selectedRole: 'customer',
         thisPagination: {
             current_page: 1,

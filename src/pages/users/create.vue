@@ -30,6 +30,8 @@
                                     <v-select
                                         v-model="addUserFields.role"
                                         :items="roleList"
+                                        item-text="text"
+                                        item-value="value"
                                         label="Role"
                                         ></v-select>
                                 </v-container>
@@ -77,7 +79,12 @@ export default {
         addUserFields: {
             role: 'customer'
         },
-        roleList: ['customer', 'stylist'],
+        // roleList: ['customer', 'stylist'],
+        roleList: [
+            { text: 'Customer', value: 'customer' },
+            { text: 'Stylist', value: 'stylist' },
+            { text: 'Art Director', value: 'art_director' },
+        ],
         formIsValid: false,
         formValidationRules: {
             nameRules: [v => !!v || 'Name is required'],
