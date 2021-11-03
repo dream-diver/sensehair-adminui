@@ -42,30 +42,30 @@ const router =  new Router({
             },
             component: () => import('../pages/bookings/index.vue'),
         },
-        // {
-        //     path: '/bookings/create',
-        //     name: 'bookings.create',
-        //     meta: { 
-        //         requiresAuth: true,
-        //     },
-        //     component: () => import('../pages/bookings/create.vue'),
-        // },
-        // {
-        //     path: '/bookings/:id',
-        //     name: 'bookings.show',
-        //     meta: { 
-        //         requiresAuth: true,
-        //     },
-        //     component: () => import('../pages/bookings/show.vue'),
-        // },
-        // {
-        //     path: '/bookings/edit/:id',
-        //     name: 'bookings.edit',
-        //     meta: { 
-        //         requiresAuth: true,
-        //     },
-        //     component: () => import('../pages/bookings/edit.vue'),
-        // },
+        {
+            path: '/bookings/create',
+            name: 'bookings.create',
+            meta: { 
+                requiresAuth: true,
+            },
+            component: () => import('../pages/bookings/create.vue'),
+        },
+        {
+            path: '/bookings/:id',
+            name: 'bookings.show',
+            meta: { 
+                requiresAuth: true,
+            },
+            component: () => import('../pages/bookings/show.vue'),
+        },
+        {
+            path: '/bookings/edit/:id',
+            name: 'bookings.edit',
+            meta: { 
+                requiresAuth: true,
+            },
+            component: () => import('../pages/bookings/edit.vue'),
+        },
 
         // Users pages
         {

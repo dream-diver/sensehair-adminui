@@ -10,7 +10,7 @@
 
         <layout-wrapper>
             <v-container fluid>
-                <card heading="Add a new Service" subheading="" >
+                <card heading="Edit a Service" subheading="" >
                 <v-form ref="form" v-model="formIsValid" lazy-validation>
                     <v-layout>
                         <v-flex xs12 md4>
