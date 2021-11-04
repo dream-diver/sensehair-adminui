@@ -26,6 +26,9 @@
                         <v-flex xs12 md6>
                             <v-container fluid>
                                 <v-text-field v-if="showBookingFields.customer" v-model="showBookingFields.customer.data.name" label="Customer" readonly="readonly"></v-text-field>
+                                <v-text-field v-if="showBookingFields.name" v-model="showBookingFields.name" label="Guest Name" readonly="readonly"></v-text-field>
+                                <v-text-field v-if="showBookingFields.phone" v-model="showBookingFields.phone" label="Guest Phone" readonly="readonly"></v-text-field>
+                                <v-text-field v-if="showBookingFields.email" v-model="showBookingFields.email" label="Guest Email" readonly="readonly"></v-text-field>
                                 <v-text-field v-model="showBookingFields.server.data.name" label="Server" readonly="readonly"></v-text-field>
                                 <v-text-field v-model="showBookingFields.payment_status" label="Payment" readonly="readonly"></v-text-field>
                             </v-container>
