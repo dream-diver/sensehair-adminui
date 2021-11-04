@@ -25,7 +25,7 @@
                         </v-flex>
                         <v-flex xs12 md6>
                             <v-container fluid>
-                                <v-text-field v-model="showBookingFields.customer.data.name" label="Customer" readonly="readonly"></v-text-field>
+                                <v-text-field v-if="showBookingFields.customer" v-model="showBookingFields.customer.data.name" label="Customer" readonly="readonly"></v-text-field>
                                 <v-text-field v-model="showBookingFields.server.data.name" label="Server" readonly="readonly"></v-text-field>
                                 <v-text-field v-model="showBookingFields.payment_status" label="Payment" readonly="readonly"></v-text-field>
                             </v-container>
