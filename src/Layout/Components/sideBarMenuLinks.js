@@ -18,6 +18,11 @@ export const adminMenuLinks = [
         href: "/services",
         icon: "pe-7s-note2",
     },
+    {
+        title: "Promocodes",
+        href: "/promocodes",
+        icon: "pe-7s-note2",
+    },
 ];
 
 export const stylistMenuLinks = [

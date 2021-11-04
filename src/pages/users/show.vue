@@ -13,14 +13,7 @@
 
         <layout-wrapper>
             <v-container fluid>
-                <card heading="Add a new User Account" subheading="" >
-                    <v-layout>
-                        <v-flex xs12 md6>
-                            <v-container pb-0 fluid>
-                                <h5><b>Basic Info</b></h5>
-                            </v-container>
-                        </v-flex>
-                    </v-layout>
+                <card heading="User Details" subheading="" >
                     <v-layout>
                         <v-flex xs12 md6>
                             <v-container fluid>

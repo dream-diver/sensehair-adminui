@@ -135,6 +135,40 @@ const router =  new Router({
             component: () => import('../pages/services/edit.vue'),
         },
 
+        // Promocodes pages
+        {
+            path: '/promocodes',
+            name: 'promocodes.index',
+            meta: { 
+                requiresAuth: true,
+            },
+            component: () => import('../pages/promocodes/index.vue'),
+        },
+        {
+            path: '/promocodes/create',
+            name: 'promocodes.create',
+            meta: { 
+                requiresAuth: true,
+            },
+            component: () => import('../pages/promocodes/create.vue'),
+        },
+        {
+            path: '/promocodes/:id',
+            name: 'promocodes.show',
+            meta: { 
+                requiresAuth: true,
+            },
+            component: () => import('../pages/promocodes/show.vue'),
+        },
+        {
+            path: '/promocodes/:id/edit',
+            name: 'promocodes.edit',
+            meta: { 
+                requiresAuth: true,
+            },
+            component: () => import('../pages/promocodes/edit.vue'),
+        },
+
         // // Testing routes
         // {
         //     path: '/loading',
