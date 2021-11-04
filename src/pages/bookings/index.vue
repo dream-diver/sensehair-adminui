@@ -27,9 +27,9 @@
                         <tr>
                             <td @click="showBooking(props.item)" class="">{{ props.item.booking_time }}</td>
                             <td @click="showBooking(props.item)" class="">£{{ props.item.charge }}</td>
-                            <td @click="showBooking(props.item)" class="">{{ props.item.customer.data.name }}</td>
-                            <td @click="showBooking(props.item)" class="">{{ $data._.startCase(props.item.customer.data.role) }}</td>
-                            <td @click="showBooking(props.item)" class="">{{ props.item.server.data.name }}</td>
+                            <td @click="showBooking(props.item)" class="">{{ props.item.customer ? props.item.customer.data.name : 'NA' }}</td>
+                            <td @click="showBooking(props.item)" class="">{{ props.item.payment_status }}</td>
+                            <td @click="showBooking(props.item)" class="">{{ props.item.server ? props.item.server.data.name : 'NA' }}</td>
                             <!-- <td @click="showBooking(props.item)" class="">{{ $data._.startCase(props.item.server.data.role.split('_').join(' ')) }}</td> -->
                             <td class="justify-center align-items-center layout px-0">
                                 <a @click.prevent="showBooking(props.item)"> <v-icon small class="mr-2" > mdi-eye </v-icon> </a>
@@ -120,7 +120,7 @@ export default {
             { text: 'Booking Time', value: 'booking_time' },
             { text: 'Charge', value: 'charge' },
             { text: 'Name', value: 'customer_name' },
-            { text: 'Type', value: 'customer_role' },
+            { text: 'Payment', value: 'payment_status' },
             { text: 'Server', value: 'server_name' },
             // { text: 'Server Role', value: 'server_role' },
         ],

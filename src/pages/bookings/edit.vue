@@ -65,6 +65,13 @@
                             </v-container>
                         </v-flex>
                         <v-flex xs12 md4>
+                            <v-container fluid>
+                                <v-select
+                                    v-model="editBookingFields.payment_status"
+                                    :items="paymentStatuses"
+                                    label="Payment Status"
+                                    ></v-select>
+                            </v-container>
                             <v-container class="py-1" v-for="service in services" :key="service.id" >
                                 <b-form-checkbox v-model="service.selected" size="lg" >
                                     {{ service.name }} - {{ service.duration }} minutes - €{{service.stylist_price}}(Stylist) - €{{service.art_director_price}}(Art Director)
@@ -157,6 +164,7 @@ export default {
         selectedBookingDate: null,
         hairSizes: ['Men', 'Women Short Hair', 'Women Medium Hair', 'Women Long Hair'],
         hairTypes: ['Straight', 'Wavy', 'Curly', 'Coily'],
+        paymentStatuses: ['Unpaid', 'Paid'],
         showBookingDateMenu: false,
 
         formIsValid: false,
@@ -243,6 +251,7 @@ export default {
                 duration: this.selectedBookingDuration,
                 customer_id: this.editBookingFields.customer_id,
                 server_id: this.editBookingFields.server_id,
+                payment_status: this.editBookingFields.payment_status,
                 services: this.services.filter(i => i.selected).map(i => i.id)
             }
         },
