@@ -20,6 +20,7 @@
                                 <v-text-field v-model="showBookingFields.booking_time" label="Booking Time" readonly="readonly"></v-text-field>
                                 <v-text-field v-model="showBookingFields.charge" label="Charge(€)" readonly="readonly"></v-text-field>
                                 <v-text-field v-model="showBookingFields.duration" label="Duration(minutes)" readonly="readonly"></v-text-field>
+                                <v-text-field v-if="showBookingFields.promocode" v-model="showBookingFields.promocode.data.code" label="Used Promocode" readonly="readonly"></v-text-field>
                             </v-container>
                         </v-flex>
                         <v-flex xs12 md6>

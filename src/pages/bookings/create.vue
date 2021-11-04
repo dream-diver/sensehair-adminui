@@ -102,6 +102,9 @@
                                     label="Select Customer"
                                     ></v-select>
                             </v-container>
+                            <v-container class="py-0">
+                                <v-text-field v-model="addBookingFields.promocode" label="Promocode" required></v-text-field>
+                            </v-container>
                         </v-flex>
                     </v-layout>
 
@@ -142,6 +145,7 @@ export default {
         addBookingFields: {
             server_id: null,
             customer_id: null,
+            promocode: null,
         },
         services: [],
         customers: [],
@@ -230,6 +234,7 @@ export default {
                 duration: this.selectedBookingDuration,
                 customer_id: this.addBookingFields.customer_id,
                 server_id: this.addBookingFields.server_id,
+                promocode: this.addBookingFields.promocode,
                 services: this.services.filter(i => i.selected).map(i => i.id)
             }
         },

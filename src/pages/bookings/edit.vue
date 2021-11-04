@@ -291,7 +291,7 @@ export default {
             var link = `api/servers/${this.editBookingFields.server_id}/availableTimes`
             return axios.get(link, {params}).then((response) => {
                 this.bookingTimes = response.data
-                this.bookingTimes.unshift(this.selectedBookingTime)
+                // this.bookingTimes.unshift(this.selectedBookingTime)
             }).catch( err => {
                 this.bookingTimes = [this.selectedBookingTime]
             } )
