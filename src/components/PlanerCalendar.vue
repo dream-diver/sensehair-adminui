@@ -1,7 +1,7 @@
 <template>
     <v-layout wrap>
         <v-flex sm4 xs12 class="text-sm-left text-xs-center" >
-            <v-btn @click="$refs.calendar.prev()"> <v-icon dark left > keyboard_arrow_left </v-icon> Prev
+            <v-btn @click="previousClicked"> <v-icon dark left > keyboard_arrow_left </v-icon> Prev
             </v-btn>
         </v-flex>
 
@@ -17,7 +17,7 @@
         </v-flex>
 
         <v-flex sm4 xs12 class="text-sm-right text-xs-center" >
-            <v-btn @click="$refs.calendar.next()"> Next <v-icon right dark > keyboard_arrow_right </v-icon> </v-btn>
+            <v-btn @click="nextClicked"> Next <v-icon right dark > keyboard_arrow_right </v-icon> </v-btn>
         </v-flex>
 
         <v-flex xs12 class="mt-3" >
@@ -125,6 +125,14 @@ export default {
                         // open: false,
                     }))
                 })
+        },
+        previousClicked(){
+            this.$refs.calendar.prev()
+            this.getBookings()
+        },
+        nextClicked(){
+            this.$refs.calendar.next()
+            this.getBookings()
         },
         open (booking) {
             alert(booking.title)
