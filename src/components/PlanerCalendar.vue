@@ -4,7 +4,18 @@
             <v-btn @click="$refs.calendar.prev()"> <v-icon dark left > keyboard_arrow_left </v-icon> Prev
             </v-btn>
         </v-flex>
-        <v-flex sm4 xs12 class="text-xs-center" > </v-flex>
+
+        <v-flex sm4 xs12 class="text-xs-center" >
+            <v-select
+                v-model="server_id"
+                :items="servers"
+                item-text="name"
+                item-value="id"
+                @change="getBookings"
+                label="Select Server"
+                ></v-select>
+        </v-flex>
+
         <v-flex sm4 xs12 class="text-sm-right text-xs-center" >
             <v-btn @click="$refs.calendar.next()"> Next <v-icon right dark > keyboard_arrow_right </v-icon> </v-btn>
         </v-flex>
@@ -64,43 +75,9 @@ export default {
         type: 'month',
         startDay: (new Date()).toISOString().split('T')[0],
         monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-        bookings: [
-            // {
-            //     title: 'Vacation',
-            //     details: 'Going to the beach!',
-            //     date: '2021-11-01',
-            //     time: '10:00',
-            //     open: false
-            // },
-            // {
-            //     title: 'Meeting',
-            //     details: 'Spending time on how we do not have enough time',
-            //     date: '2021-11-07',
-            //     time: '10:00',
-            //     open: false
-            // },
-            // {
-            //     title: '30th Birthday',
-            //     details: 'Celebrate responsibly',
-            //     date: '2021-11-03',
-            //     time: '10:00',
-            //     open: false
-            // },
-            // {
-            //     title: 'New Year',
-            //     details: 'Eat chocolate until you pass out',
-            //     date: '2021-11-01',
-            //     time: '10:00',
-            //     open: false
-            // },
-            // {
-            //     title: 'Conference',
-            //     details: 'Mute myself the whole time and wonder why I am on this call',
-            //     date: '2021-11-21',
-            //     time: '10:00',
-            //     open: false
-            // },
-        ],
+        bookings: [],
+        server_id: null,
+        servers: [ { name: 'All', id: null, } ],
     }),
     computed: {
         // convert the list of bookings into a map of lists keyed by date
@@ -117,33 +94,61 @@ export default {
         },
     },
     mounted(){
-        var link = "api/bookings"
-        var params = {
-            year: this.currentYear,
-            month: this.currentMonth,
-            orderBy: 'booking_time',
-            limit: 'all',
-        }
-        axios.get(link, { params })
-            .then(({data}) => {
-                this.bookings = data.data.map(i => ({
-                    id: i.data.id,
-                    title: i.data.customer.data.name,
-                    details: 'For ' + i.data.server.data.name + ' at ' + i.data.booking_time.split(' ')[1],
-                    date: i.data.booking_time.split(' ')[0],
-                    time: i.data.booking_time.split(' ')[1],
-                    // open: false,
-                }))
-                console.log(data.data.map(i => i.data.booking_time));
-            })
+        this.init()
     },
     methods: {
+        init(){
+            this.getBookings()
+            this.getServers()
+        },
+        getBookings(){
+            var link = "api/bookings"
+            var params = {
+                year: this.currentYear,
+                month: this.currentMonth,
+                orderBy: 'booking_time',
+                limit: 'all',
+            }
+
+            if(this.server_id) {
+                params.server_id = this.server_id
+            }
+
+            axios.get(link, { params })
+                .then(({data}) => {
+                    this.bookings = data.data.map(i => ({
+                        id: i.data.id,
+                        title: i.data.customer.data.name,
+                        details: 'For ' + i.data.server.data.name + ' at ' + i.data.booking_time.split(' ')[1],
+                        date: i.data.booking_time.split(' ')[0],
+                        time: i.data.booking_time.split(' ')[1],
+                        // open: false,
+                    }))
+                })
+        },
         open (booking) {
             alert(booking.title)
         },
         titleClicked(booking){
             this.$router.push({name: 'bookings.show', params: { id: booking.id }})
-        }
+        },
+        async getServers(){
+            const params = {
+                role: 'stylist',
+                limit: 'all',
+            }
+            var link = "api/users"
+            await axios.get(link, {params}).then(({data}) => {
+                const servers = data.data.map(i => (i.data))
+                this.servers.push(...servers)
+            })
+
+            params.role = 'art_director'
+            await axios.get(link, {params}).then(({data}) => {
+                const servers = data.data.map(i => (i.data))
+                this.servers.push(...servers)
+            })
+        },
     }
 }
 </script>
