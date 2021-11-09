@@ -4,6 +4,11 @@ export const adminMenuLinks = [
         title: "Main Navigation"
     },
     {
+        title: "Planer",
+        href: "/planer",
+        icon: "pe-7s-note2",
+    },
+    {
         title: "Users",
         href: "/users",
         icon: "pe-7s-users",

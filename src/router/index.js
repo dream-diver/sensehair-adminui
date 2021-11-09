@@ -29,8 +29,17 @@ const router =  new Router({
             },
             // component: () => import('../DemoPages/Dashboards/analytics.vue'),
             redirect: {
-                name: 'users.index'
+                name: 'planer'
             }
+        },
+
+        {
+            path: '/planer',
+            name: 'planer',
+            meta: { 
+                requiresAuth: true,
+            },
+            component: () => import('../pages/planer/index.vue'),
         },
 
         // Bookings pages
