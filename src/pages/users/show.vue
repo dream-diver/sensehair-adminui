@@ -19,6 +19,7 @@
                             <v-container fluid>
                                 <v-text-field v-model="showUserFields.name" label="Name" readonly="readonly"></v-text-field>
                                 <v-text-field v-model="showUserFields.email" label="Email" readonly="readonly"></v-text-field>
+                                <v-img v-if="showUserFields.avatar_path" :src="showUserFields.avatar_path" height="200" width="200"></v-img>
                             </v-container>
                         </v-flex>
                         <v-flex xs12 md6>

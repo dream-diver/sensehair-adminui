@@ -28,6 +28,10 @@
                                 <v-text-field v-model="editUserFields.name" :rules="formValidationRules.nameRules" label="Name" required></v-text-field>
                                 <v-text-field v-model="editUserFields.email" :rules="formValidationRules.emailRules" label="Email" required></v-text-field>
                             </v-container>
+                            <v-container v-if="editUserFields.role == 'stylist' || editUserFields.role == 'art_director'" fluid>
+                                <input type="file" accept="image/*" name="avatar" class="form-control-file btn btn-default" style="" @change="avatarUploaded">
+                                <span>Upload Square(ie: 300x300 pixels) Images for best quality</span>
+                            </v-container>
                         </v-flex>
                         <v-flex xs12 md6>
                             <v-container fluid>
@@ -37,7 +41,7 @@
                         </v-flex>
                     </v-layout>
                     <v-container fluid>
-                        <b-button @click="editUserSubmitted(editUserFields.id)" class="mr-2 mb-2" :variant="formIsValid? 'success':'danger'" :disabled="formIsValid ? false:true">{{formIsValid ? 'Submit': 'Invalid Inputs'}}</b-button>
+                        <b-button @click="editUserSubmitted(editUserFields.id)" class="mr-2 mb-2" :variant="formIsValid? 'success':'danger'" :disabled="(formIsValid && !submitting) ? false:true">{{ submitButtonText }}</b-button>
                     </v-container>
                 </v-form>
                 </card>
@@ -71,6 +75,7 @@ export default {
 
     data: () => ({
         editUserFields: {
+            avatarFIle: null,
         },
         formIsValid: false,
         formValidationRules: {
@@ -83,6 +88,7 @@ export default {
                 v => /.+@.+\..+/.test(v) || "E-mail must be valid"
             ]
         },
+        submitting: false,
         pageTitle: {
             heading: "Edit Users",
             subheading:
@@ -93,16 +99,30 @@ export default {
         email: "",
     }),
     computed: {
+        submitButtonText(){
+            if(this.submitting){
+                return 'Submitting'
+            } else if(this.formIsValid){
+                return 'Submit'
+            } else {
+                return 'Invalid Inputs'
+            }
+        }
     },
     created(){
         this.getUserData(this.$route.params.id)
     },
 
     methods: {
+        avatarUploaded(event){
+            this.editUserFields.avatarFIle = event.target.files[0]
+            console.log(this.editUserFields.avatarFIle);
+        },
         getUserData(id){
             var link = `api/users/${id}`
             axios.get(link).then(({data}) => {
                 this.editUserFields = data.user.data
+                console.log(this.editUserFields);
             })
         },
         editUserSubmitted(id){
@@ -110,9 +130,31 @@ export default {
 
             if (this.formIsValid) {
                 var link = `api/users/${id}`
-                axios.patch(link, this.editUserFields).then( response => {
+
+                let data = new FormData();
+                data.append('name', this.editUserFields.name);
+                data.append('email', this.editUserFields.email);
+                data.append('phone', this.editUserFields.phone);
+                data.append('password', this.editUserFields.password);
+                if(this.editUserFields.avatarFIle) {
+                    data.append('avatar', this.editUserFields.avatarFIle); 
+                }
+
+                let config = {
+                    header : {
+                        'content-type': 'multipart/form-data'
+                    }
+                }
+
+                this.submitting = true
+                axios.patch(link, data, config).then( response => {
+                    this.submitting = false
                     this.$router.push({name: 'users.index'})
                 } )
+
+                // axios.patch(link, this.editUserFields).then( response => {
+                //     this.$router.push({name: 'users.index'})
+                // } )
             }
         }
     }
