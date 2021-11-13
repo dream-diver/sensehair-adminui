@@ -76,6 +76,7 @@ export default {
     data: () => ({
         editUserFields: {
             avatarFIle: null,
+            password: null,
         },
         formIsValid: false,
         formValidationRules: {
@@ -135,7 +136,9 @@ export default {
                 data.append('name', this.editUserFields.name);
                 data.append('email', this.editUserFields.email);
                 data.append('phone', this.editUserFields.phone);
-                data.append('password', this.editUserFields.password);
+                if (this.editUserFields.password) {
+                    data.append('password', this.editUserFields.password);
+                }
                 if(this.editUserFields.avatarFIle) {
                     data.append('avatar', this.editUserFields.avatarFIle); 
                 }
