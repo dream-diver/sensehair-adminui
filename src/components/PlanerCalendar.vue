@@ -118,7 +118,7 @@ export default {
                 .then(({data}) => {
                     this.bookings = data.data.map(i => ({
                         id: i.data.id,
-                        title: i.data.customer.data.name,
+                        title: i.data.customer ? i.data.customer.data.name : i.data.name,
                         details: 'For ' + i.data.server.data.name + ' at ' + i.data.booking_time.split(' ')[1],
                         date: i.data.booking_time.split(' ')[0],
                         time: i.data.booking_time.split(' ')[1],
