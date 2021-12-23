@@ -15,7 +15,8 @@
                     <v-layout>
                         <v-flex xs12 md4>
                             <v-container fluid>
-                                <v-text-field v-model="addServiceFields.name" :rules="formValidationRules.nameRules" label="Name" required></v-text-field>
+                                <v-text-field v-model="addServiceFields.name" :rules="formValidationRules.nameRules" label="Name(Dutch)" required></v-text-field>
+                                <v-text-field v-model="addServiceFields.name_en" :rules="formValidationRules.nameRules" label="Name(English)" required></v-text-field>
                                 <v-text-field type="number" v-model="addServiceFields.duration" :rules="formValidationRules.durationRules" label="Duration" required></v-text-field>
                             </v-container>
                         </v-flex>
@@ -130,6 +131,7 @@ export default {
         sanitizeAddServiceFields(){
             return {
                 name: this.addServiceFields.name,
+                name_en: this.addServiceFields.name_en,
                 duration: parseFloat(this.addServiceFields.duration).toFixed(2),
                 stylist_price: parseFloat(this.addServiceFields.stylist_price).toFixed(2),
                 art_director_price: parseFloat(this.addServiceFields.art_director_price).toFixed(2),

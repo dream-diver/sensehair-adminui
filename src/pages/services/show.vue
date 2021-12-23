@@ -17,7 +17,8 @@
                     <v-layout>
                         <v-flex xs12 md4>
                             <v-container fluid>
-                                <v-text-field v-model="showServiceFields.name" label="Name" readonly="readonly"></v-text-field>
+                                <v-text-field v-model="showServiceFields.name" label="Name(Dutch)" readonly="readonly"></v-text-field>
+                                <v-text-field v-model="showServiceFields.name_en" label="Name(English)" readonly="readonly"></v-text-field>
                                 <v-text-field v-model="showServiceFields.duration" label="Duration" readonly="readonly"></v-text-field>
                             </v-container>
                         </v-flex>
