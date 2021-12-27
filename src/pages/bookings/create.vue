@@ -77,11 +77,50 @@
                             </v-container>
                         </v-flex>
                         <v-flex xs12 md4>
-                            <v-container class="py-0">
+                            <v-container class="">
                                 <v-radio-group v-model="selectedServerType" @change="getServers" row>
                                     <v-radio label="Stylist" value="stylist"></v-radio>
                                     <v-radio label="Art Director" value="art_director"></v-radio>
+
+                                    <v-btn color="success" small @click.stop="addCustomerModalOpen = true" >
+                                        <font-awesome-icon class="mr-2" icon="plus" /> Add Customer
+                                    </v-btn>
                                 </v-radio-group>
+                                <v-dialog
+                                    v-model="addCustomerModalOpen"
+                                    max-width="600px"
+                                    >
+                                    <v-form ref="addCustomerForm" v-model="addCustomerFormIsValid" lazy-validation>
+                                        <v-card>
+                                            <v-card-title>
+                                                <span class="headline">Add Customer</span>
+                                            </v-card-title>
+                                            <v-card-text>
+                                                <v-container grid-list-md>
+                                                    <v-layout wrap>
+                                                        <v-flex xs12 sm6 md6>
+                                                            <v-text-field v-model="addCustomerFields.name" :rules="formValidationRules.nameRules" label="Name*"></v-text-field>
+                                                        </v-flex>
+                                                        <v-flex xs12 sm6 md6>
+                                                            <v-text-field v-model="addCustomerFields.email" label="Email*" :rules="formValidationRules.emailRules" type="email"></v-text-field>
+                                                        </v-flex>
+                                                        <v-flex xs12>
+                                                            <v-text-field v-model="addCustomerFields.phone" label="Phone*" :rules="formValidationRules.phoneRules" type="number"></v-text-field>
+                                                        </v-flex>
+                                                        <v-flex xs12>
+                                                            <v-text-field v-model="addCustomerFields.password" label="Password" :rules="formValidationRules.passwordRules" type="password"></v-text-field>
+                                                        </v-flex>
+                                                    </v-layout>
+                                                </v-container>
+                                                <small>*indicates required field</small>
+                                            </v-card-text>
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                                <b-button @click="addCustomer" class="mr-2 mb-2" :variant="addCustomerFormIsValid? 'success':'danger'" :disabled="addCustomerFormIsValid ? false:true">{{addCustomerFormIsValid ? 'Add User': 'Invalid Inputs'}}</b-button>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-form>
+                                </v-dialog>
                             </v-container>
                             <v-container class="py-0">
                                 <v-select
@@ -147,6 +186,12 @@ export default {
             customer_id: null,
             promocode: null,
         },
+        addCustomerFields: {
+            name: null,
+            email: null,
+            phone: null,
+            password: null,
+        },
         services: [],
         customers: [],
         servers: [],
@@ -161,10 +206,21 @@ export default {
         hairTypes: ['Straight', 'Wavy', 'Curly', 'Coily'],
         showBookingDateMenu: false,
 
+        addCustomerModalOpen: false,
 
         formIsValid: false,
+        addCustomerFormIsValid: false,
         formValidationRules: {
             selectedBookingTimeRules: [v => !!v || 'Booking Time is required'],
+            nameRules: [v => !!v || 'Name is required'],
+            // phoneRules: [v => !!v || 'Phone is required'],
+            phoneRules: [true],
+            passwordRules: [v => !!v || 'Password is required'],
+            // passwordRules: [true || 'Password is required'],
+            emailRules: [
+                v => !!v || "E-mail is required",
+                v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+            ]
         },
         pageTitle: {
             heading: "Add Bookings",
@@ -275,7 +331,7 @@ export default {
                 limit: 'all',
             }
             var link = "api/users"
-            axios.get(link, {params}).then(({data}) => {
+            return axios.get(link, {params}).then(({data}) => {
                 this.customers = data.data.map(i => (i.data))
                 this.addBookingFields.customer_id = this.customers[0].id
             })
@@ -290,6 +346,24 @@ export default {
                 this.servers = data.data.map(i => (i.data))
                 this.addBookingFields.server_id = this.servers[0].id
             })
+        },
+        addCustomer(){
+            this.$refs.addCustomerForm.validate()
+
+            if (this.addCustomerFormIsValid) {
+                var link = "api/users"
+                axios.post(link, this.addCustomerFields).then(async response => {
+                    this.$refs.addCustomerForm.reset()
+
+                    await this.getCustomers()
+
+                    this.addBookingFields.customer_id = response.data.user.data.id
+
+                    this.addCustomerFields = {}
+
+                    this.addCustomerModalOpen = false
+                } )
+            }
         },
     }
 };
