@@ -30,12 +30,17 @@
                                 <template v-slot:activator="{ on }">
                                     <div v-ripple class="my-booking" v-on="on" v-html="booking.time + ' - ' + booking.title" ></div>
                                 </template>
+
                                 <v-card color="grey lighten-4" min-width="350px" flat >
                                     <v-toolbar color="primary" dark >
                                         <v-toolbar-title @click="titleClicked(booking)" v-html="booking.title"></v-toolbar-title>
                                     </v-toolbar>
                                     <v-card-title primary-title>
-                                        <span v-html="booking.details"></span>
+                                        <div>
+                                            <h5>{{ booking.details }}</h5>
+                                            <p><b>Services: </b></p>
+                                            <p v-for="service in booking.services" :key="service.data.id" class="mb-0"> {{ service.data.name }} - {{ service.data.duration }} min</p>
+                                        </div>
                                     </v-card-title>
                                     <v-card-actions>
                                         <v-btn flat color="secondary" > Cancel </v-btn>
@@ -120,6 +125,7 @@ export default {
                         id: i.data.id,
                         title: i.data.customer ? i.data.customer.data.name : i.data.name,
                         details: 'For ' + i.data.server.data.name + ' at ' + i.data.booking_time.split(' ')[1],
+                        services: i.data.services,
                         date: i.data.booking_time.split(' ')[0],
                         time: i.data.booking_time.split(' ')[1],
                         // open: false,
