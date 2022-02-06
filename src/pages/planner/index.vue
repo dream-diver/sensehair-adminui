@@ -1,12 +1,15 @@
 <template>
     <div>
-        <page-title :heading="pageTitle.heading" :subheading="pageTitle.subheading" :icon="pageTitle.icon">
+        <page-title
+            :heading="pageTitle.heading"
+            :subheading="pageTitle.subheading"
+            :icon="pageTitle.icon"
+        >
         </page-title>
 
         <layout-wrapper>
-            <card heading="Planer" subheading="" >
-            <planer-calendar>
-            </planer-calendar>
+            <card heading="Planner" subheading="">
+                <planner-calendar> </planner-calendar>
             </card>
         </layout-wrapper>
     </div>
@@ -16,35 +19,33 @@
 </style>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 import PageTitle from "@/Layout/Components/PageTitle.vue";
 import LayoutWrapper from "@/Layout/Components/LayoutWrapper";
 import Card from "@/Layout/Components/Card";
-import PlanerCalendar from '@/components/PlanerCalendar'
+import PlannerCalendar from "@/components/PlannerCalendar";
 
 export default {
     components: {
         PageTitle,
         "layout-wrapper": LayoutWrapper,
         Card,
-        PlanerCalendar,
+        PlannerCalendar,
     },
 
     data: () => ({
         pageTitle: {
-            heading: "Planer",
-            subheading: "Bellow is all the bookings are listed in a calendar view",
+            heading: "Planner",
+            subheading:
+                "Bellow is all the bookings are listed in a calendar view",
             icon: "pe-7s-plane icon-gradient bg-tempting-azure",
         },
     }),
     computed: {
-        ...mapGetters({ 
-        }),
+        ...mapGetters({}),
     },
-    created(){
-    },
+    created() {},
 
-    methods: {
-    }
+    methods: {},
 };
 </script>

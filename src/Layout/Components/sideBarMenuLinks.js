@@ -1,11 +1,11 @@
 export const adminMenuLinks = [
     {
         header: true,
-        title: "Main Navigation"
+        title: "Main Navigation",
     },
     {
-        title: "Planer",
-        href: "/planer",
+        title: "Planner",
+        href: "/planner",
         icon: "pe-7s-note2",
     },
     {
@@ -33,7 +33,7 @@ export const adminMenuLinks = [
 export const stylistMenuLinks = [
     {
         header: true,
-        title: "Main Navigation"
+        title: "Main Navigation",
     },
     {
         title: "Bookings",
@@ -45,6 +45,6 @@ export const stylistMenuLinks = [
 export const customerMenuLinks = [
     {
         header: true,
-        title: "Main Navigation"
+        title: "Main Navigation",
     },
 ];

@@ -39,17 +39,17 @@ const router = new Router({
             },
             // component: () => import('../DemoPages/Dashboards/analytics.vue'),
             redirect: {
-                name: "planer",
+                name: "planner",
             },
         },
 
         {
-            path: "/planer",
-            name: "planer",
+            path: "/planner",
+            name: "planner",
             meta: {
                 requiresAuth: true,
             },
-            component: () => import("../pages/planer/index.vue"),
+            component: () => import("../pages/planner/index.vue"),
         },
 
         // Bookings pages
