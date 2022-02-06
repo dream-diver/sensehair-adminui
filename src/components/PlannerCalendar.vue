@@ -24,7 +24,6 @@
         </v-flex>
 
         <v-flex xs12 class="mt-3">
-            <!-- <v-sheet height="500"> -->
             <v-calendar
                 ref="calendar"
                 v-model="startDay"
@@ -85,7 +84,6 @@
                     </template>
                 </template>
             </v-calendar>
-            <!-- </v-sheet> -->
         </v-flex>
     </v-layout>
 </template>

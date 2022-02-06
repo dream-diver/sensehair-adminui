@@ -8,8 +8,7 @@
         </page-title>
 
         <layout-wrapper>
-            <!-- <planner-calendar> </planner-calendar> -->
-            <card heading="Planner" subheading="">
+            <card heading="Planner" subheading="" class="mb-5">
                 <planner-calendar> </planner-calendar>
             </card>
         </layout-wrapper>
