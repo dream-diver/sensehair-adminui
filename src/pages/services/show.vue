@@ -70,7 +70,7 @@ export default {
         pageTitle: {
             heading: "View Service",
             subheading: "Below is the information listed for the selected service",
-            icon: "pe-7s-plane icon-gradient bg-tempting-azure",
+            icon: "pe-7s-menu icon-gradient bg-tempting-azure",
         },
     }),
     computed: {

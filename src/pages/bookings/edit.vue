@@ -175,7 +175,7 @@ export default {
             heading: "Edit Bookings",
             subheading:
             "To edit bookings please fill up the form below.",
-            icon: "pe-7s-plane icon-gradient bg-tempting-azure",
+            icon: "pe-7s-notebook icon-gradient bg-tempting-azure",
             createNewLink: {name: 'booking.create'},
         },
     }),

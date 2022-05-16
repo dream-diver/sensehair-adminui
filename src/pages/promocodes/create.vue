@@ -93,7 +93,7 @@ export default {
         pageTitle: {
             heading: "Add Promocodes",
             subheading: "To add new promocodes please fill up the form below.",
-            icon: "pe-7s-plane icon-gradient bg-tempting-azure",
+            icon: "pe-7s-note icon-gradient bg-tempting-azure",
         },
         duration: "",
     }),

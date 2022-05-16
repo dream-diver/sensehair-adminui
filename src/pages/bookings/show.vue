@@ -85,7 +85,7 @@ export default {
         pageTitle: {
             heading: "View Booking",
             subheading: "Below is the information listed for the selected booking",
-            icon: "pe-7s-plane icon-gradient bg-tempting-azure",
+            icon: "pe-7s-notebook icon-gradient bg-tempting-azure",
         },
     }),
     computed: {

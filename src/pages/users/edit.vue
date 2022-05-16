@@ -144,7 +144,7 @@ export default {
         pageTitle: {
             heading: "Edit Users",
             subheading: "To edit users please fill up the form below.",
-            icon: "pe-7s-plane icon-gradient bg-tempting-azure",
+            icon: "pe-7s-users icon-gradient bg-tempting-azure",
             createNewLink: { name: "user.create" },
         },
         email: "",

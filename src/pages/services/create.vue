@@ -100,7 +100,7 @@ export default {
         pageTitle: {
             heading: "Add Services",
             subheading: "To add new services please fill up the form below.",
-            icon: "pe-7s-plane icon-gradient bg-tempting-azure",
+            icon: "pe-7s-menu icon-gradient bg-tempting-azure",
         },
         duration: "",
     }),

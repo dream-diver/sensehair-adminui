@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container app-theme-white">
+  <div class="app-container app-theme-black">
     <transition name="fade" mode="out-in" appear>
       <Header :headerbg="headercolor" />
     </transition>

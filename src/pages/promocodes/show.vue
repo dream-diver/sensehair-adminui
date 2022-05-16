@@ -61,7 +61,7 @@ export default {
         pageTitle: {
             heading: "View Promocode",
             subheading: "Below is the information listed for the selected promocode",
-            icon: "pe-7s-plane icon-gradient bg-tempting-azure",
+            icon: "pe-7s-note icon-gradient bg-tempting-azure",
         },
     }),
     computed: {

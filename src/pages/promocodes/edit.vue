@@ -71,7 +71,7 @@ export default {
             heading: "Edit Promocodes",
             subheading:
             "To edit promocodes please fill up the form below.",
-            icon: "pe-7s-plane icon-gradient bg-tempting-azure",
+            icon: "pe-7s-note icon-gradient bg-tempting-azure",
             createNewLink: {name: 'promocode.create'},
         },
         email: "",

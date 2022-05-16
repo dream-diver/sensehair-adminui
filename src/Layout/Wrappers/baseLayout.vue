@@ -1,6 +1,6 @@
 <template>
     <v-app id="benesApp">
-        <div class="app-container app-theme-white">
+        <div class="app-container">
             <transition name="fade" mode="out-in" appear>
                 <Header :headerbg="headercolor" />
             </transition>
@@ -16,20 +16,12 @@
             <b-modal id="modal1" title="Bootstrap-Vue">
                 <p class="my-4">Hello from modal!</p>
             </b-modal>
-            <b-modal id="modallg" size="lg" title="Large Modal"
-                >Hello Modal!</b-modal
-            >
-            <b-modal id="modalsm" size="sm" title="Small Modal"
-                >Hello Modal!</b-modal
-            >
+            <b-modal id="modallg" size="lg" title="Large Modal">Hello Modal!</b-modal>
+            <b-modal id="modalsm" size="sm" title="Small Modal">Hello Modal!</b-modal>
 
             <div class="ui-theme-settings">
-                <button
-                    type="button"
-                    class="btn-open-options btn btn-warning"
-                    v-bind:class="{ 'is-active': isConfigOpen }"
-                    @click="toggleConfig('settings-open')"
-                >
+                <button type="button" class="btn-open-options btn btn-warning"
+                    v-bind:class="{ 'is-active': isConfigOpen }" @click="toggleConfig('settings-open')">
                     <font-awesome-icon icon="cog" size="2x" spin />
                 </button>
                 <div class="theme-settings__inner">
@@ -37,11 +29,8 @@
                         <div class="theme-settings__options-wrapper">
                             <h3 class="themeoptions-heading">
                                 <div>Header Style</div>
-                                <button
-                                    type="button"
-                                    @click="headercolor = ''"
-                                    class="btn-pill btn-shadow btn-wide ml-auto btn btn-focus btn-sm"
-                                >
+                                <button type="button" @click="headercolor = ''"
+                                    class="btn-pill btn-shadow btn-wide ml-auto btn btn-focus btn-sm">
                                     Restore Default
                                 </button>
                             </h3>
@@ -52,24 +41,16 @@
                                             Choose Color Scheme
                                         </h5>
                                         <div class="theme-settings-swatches">
-                                            <div
-                                                v-for="color in colors"
-                                                v-bind:key="color"
-                                                @click="headercolor = color"
-                                                :class="color"
-                                                class="swatch-holder swatch-holder-md"
-                                            ></div>
+                                            <div v-for="color in colors" v-bind:key="color" @click="headercolor = color"
+                                                :class="color" class="swatch-holder swatch-holder-md"></div>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
                             <h3 class="themeoptions-heading">
                                 <div>Sidebar Style</div>
-                                <button
-                                    type="button"
-                                    @click="sidebarcolor = ''"
-                                    class="btn-pill btn-shadow btn-wide ml-auto btn btn-focus btn-sm"
-                                >
+                                <button type="button" @click="sidebarcolor = ''"
+                                    class="btn-pill btn-shadow btn-wide ml-auto btn btn-focus btn-sm">
                                     Restore Default
                                 </button>
                             </h3>
@@ -80,13 +61,9 @@
                                             Choose Color Scheme
                                         </h5>
                                         <div class="theme-settings-swatches">
-                                            <div
-                                                v-for="color in colors"
-                                                v-bind:key="color"
-                                                @click="sidebarcolor = color"
-                                                :class="color"
-                                                class="swatch-holder swatch-holder-md"
-                                            ></div>
+                                            <div v-for="color in colors" v-bind:key="color"
+                                                @click="sidebarcolor = color" :class="color"
+                                                class="swatch-holder swatch-holder-md"></div>
                                         </div>
                                     </li>
                                 </ul>

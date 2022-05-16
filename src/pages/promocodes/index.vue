@@ -99,7 +99,7 @@ export default {
         pageTitle: {
             heading: "Manage Promocodes",
             subheading: "Bellow all the Promocodes listed. To take necessary action choose action under actions tab.",
-            icon: "pe-7s-plane icon-gradient bg-tempting-azure",
+            icon: "pe-7s-note icon-gradient bg-tempting-azure",
         },
         promocodesData: [],
         promocodesDataLoaded: false,

@@ -38,7 +38,7 @@ export default {
             heading: "Planner",
             subheading:
                 "Bellow is all the bookings are listed in a calendar view",
-            icon: "pe-7s-plane icon-gradient bg-tempting-azure",
+            icon: "pe-7s-plane",
         },
     }),
     computed: {

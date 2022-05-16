@@ -6,7 +6,7 @@ export const adminMenuLinks = [
     {
         title: "Planner",
         href: "/planner",
-        icon: "pe-7s-note2",
+        icon: "pe-7s-plane",
     },
     {
         title: "Users",
@@ -16,17 +16,17 @@ export const adminMenuLinks = [
     {
         title: "Bookings",
         href: "/bookings",
-        icon: "pe-7s-note2",
+        icon: "pe-7s-notebook",
     },
     {
         title: "Services",
         href: "/services",
-        icon: "pe-7s-note2",
+        icon: "pe-7s-menu",
     },
     {
         title: "Promocodes",
         href: "/promocodes",
-        icon: "pe-7s-note2",
+        icon: "pe-7s-note",
     },
 ];
 
@@ -38,7 +38,7 @@ export const stylistMenuLinks = [
     {
         title: "Bookings",
         href: "/bookings",
-        icon: "pe-7s-note2",
+        icon: "pe-7s-notebook",
     },
 ];
 

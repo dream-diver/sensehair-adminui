@@ -113,7 +113,7 @@ export default {
         pageTitle: {
             heading: "Manage Bookings",
             subheading: "Bellow all the Bookings listed. To take necessary action choose action under actions tab.",
-            icon: "pe-7s-plane icon-gradient bg-tempting-azure",
+            icon: "pe-7s-notebook icon-gradient bg-tempting-azure",
         },
         bookingsData: [],
         bookingsDataLoaded: false,

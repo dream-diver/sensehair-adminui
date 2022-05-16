@@ -64,7 +64,7 @@ export default {
         pageTitle: {
             heading: "View User",
             subheading: "Below is the information listed for the selected user",
-            icon: "pe-7s-plane icon-gradient bg-tempting-azure",
+            icon: "pe-7s-users icon-gradient bg-tempting-azure",
         },
         email: "",
     }),

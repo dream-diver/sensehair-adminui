@@ -100,7 +100,7 @@ export default {
             heading: "Edit Services",
             subheading:
             "To edit services please fill up the form below.",
-            icon: "pe-7s-plane icon-gradient bg-tempting-azure",
+            icon: "pe-7s-menu icon-gradient bg-tempting-azure",
             createNewLink: {name: 'service.create'},
         },
         email: "",

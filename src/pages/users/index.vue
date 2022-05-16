@@ -105,7 +105,7 @@ export default {
         pageTitle: {
             heading: "Manage Users",
             subheading: "Bellow all the Users listed. To take necessary action choose action under actions tab.",
-            icon: "pe-7s-plane icon-gradient bg-tempting-azure",
+            icon: "pe-7s-users icon-gradient bg-tempting-azure",
         },
         usersData: [],
         usersDataLoaded: false,

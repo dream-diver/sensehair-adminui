@@ -101,7 +101,7 @@ export default {
         pageTitle: {
             heading: "Manage Services",
             subheading: "Bellow all the Services listed. To take necessary action choose action under actions tab.",
-            icon: "pe-7s-plane icon-gradient bg-tempting-azure",
+            icon: "pe-7s-menu icon-gradient bg-tempting-azure",
         },
         servicesData: [],
         servicesDataLoaded: false,

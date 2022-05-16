@@ -40,6 +40,15 @@
                                 <v-container fluid>
                                     <v-text-field v-model="addUserFields.phone" :rules="formValidationRules.phoneRules" label="Phone" required></v-text-field>
                                     <v-text-field type="password" v-model="addUserFields.password" :rules="formValidationRules.passwordRules" label="Password"></v-text-field>
+                                        <label class="mt-2 label">Choose Avatar </label>
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input v-on:change="selectAvatar" type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                                                <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+                                            </div>
+                                            <div class="input-group-append">
+                                            </div>
+                                        </div>
                                 </v-container>
                             </v-flex>
                         </v-layout>
@@ -99,7 +108,7 @@ export default {
         pageTitle: {
             heading: "Add Users",
             subheading: "To add new users please fill up the form below.",
-            icon: "pe-7s-plane icon-gradient bg-tempting-azure",
+            icon: "pe-7s-users icon-gradient bg-tempting-azure",
         },
         email: "",
     }),
@@ -113,13 +122,27 @@ export default {
             this.$refs.form.validate()
 
             if (this.formIsValid) {
+                const fd = new FormData();
+                fd.append('name',this.addUserFields.name);
+                fd.append('email',this.addUserFields.email);
+                fd.append('phone',this.addUserFields.phone);
+                fd.append('password',this.addUserFields.password);
+                fd.append('role',this.addUserFields.role);
+                fd.append('avatar',this.addUserFields.avatar);
                 var link = "api/users"
-                axios.post(link, this.addUserFields).then( response => {
+                axios.post(link, fd).then( response => {
                     this.$refs.form.reset()
                     this.addUserFields = {}
                     this.$router.push({name: 'users.index'})
                 } )
             }
+        },
+        selectAvatar(e){
+            if(e.target.files[0]){
+                console.log(e.target.files[0]);
+                this.addUserFields.avatar = e.target.files[0];
+            }
+            
         }
     }
 };
