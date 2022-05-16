@@ -44,7 +44,7 @@
                                     </div>
                                 </v-card-title>
                                 <v-card-actions>
-                                    <v-btn flat color="secondary">
+                                    <v-btn @click="cancelBooking(booking.id)" flat color="secondary">
                                         Cancel
                                     </v-btn>
                                 </v-card-actions>
@@ -127,9 +127,21 @@ export default {
                 this.getBookings();
                 this.getServers();
             }
-            else{
+            else {
                 this.getOwnBookings(st.auth.loggedInUser.data.id);
             }
+        },
+
+        cancelBooking(booking_id) {
+            var link = "api/bookings/cancel";
+            var params = {
+                booking_id,
+            };
+
+            axios.post(link, { params }).then(({ data }) => {
+                console.log(this.bookings);
+                this.bookings = this.bookings.filter(el => el.id != booking_id);
+            });
         },
         getBookings() {
             var link = "api/bookings";
