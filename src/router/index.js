@@ -188,6 +188,22 @@ const router = new Router({
             component: () => import("../pages/promocodes/edit.vue"),
         },
 
+        {
+            path: "/job-applications",
+            name: "job-applications.index",
+            meta: {
+                requiresAuth: true,
+            },
+            component: () => import("../pages/applications/index.vue"),
+        },
+        {
+            path: "/job-applications/:id",
+            name: "job-applications.show",
+            meta: {
+                requiresAuth: true,
+            },
+            component: () => import("../pages/applications/show.vue"),
+        },
         // // Testing routes
         // {
         //     path: '/loading',

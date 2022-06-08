@@ -28,6 +28,11 @@ export const adminMenuLinks = [
         href: "/promocodes",
         icon: "pe-7s-note",
     },
+    {
+        title: "Job Applications",
+        href: "/job-applications",
+        icon: "pe-7s-users",
+    },
 ];
 
 export const stylistMenuLinks = [

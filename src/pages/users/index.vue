@@ -2,41 +2,44 @@
     <div>
         <page-title :heading="pageTitle.heading" :subheading="pageTitle.subheading" :icon="pageTitle.icon">
             <template v-slot:actions>
-                <button type="button" @click="$router.push({name: 'users.create'})" class="btn-shadow d-inline-flex align-items-center btn btn-success mr-2">
+                <button type="button" @click="$router.push({ name: 'users.create' })"
+                    class="btn-shadow d-inline-flex align-items-center btn btn-success mr-2">
                     <font-awesome-icon class="mr-2" icon="plus" /> Create User
                 </button>
             </template>
         </page-title>
 
         <layout-wrapper>
-            <card :heading="this.pagination.message" subheading="" >
+            <card :heading="this.pagination.message" subheading="">
                 <template v-slot:action2>
                     <v-layout>
-                        <b-form-select v-model="thisPagination.per_page" @change="numOfRowsChanged" :options="pagination.numOfRowsOptions" size="sm" class="mt-0"></b-form-select>
+                        <b-form-select v-model="thisPagination.per_page" @change="numOfRowsChanged"
+                            :options="pagination.numOfRowsOptions" size="sm" class="mt-0"></b-form-select>
                     </v-layout>
                 </template>
                 <template v-slot:action1>
                     <v-layout>
-                        <b-form-select v-model="selectedRole" @change="selectedRoleChanged" :options="roleList" size="sm" class="ml-2 text-capitalize"></b-form-select>
+                        <b-form-select v-model="selectedRole" @change="selectedRoleChanged" :options="roleList"
+                            size="sm" class="ml-2 text-capitalize"></b-form-select>
                     </v-layout>
                 </template>
-                <v-data-table
-                    :headers="headers"
-                    :items="usersData"
-                    :disable-initial-sort="true"
-                    hide-actions
-                    class="elevation-1"
-                    :loading="!usersDataLoaded"
-                    >
+                <v-data-table :headers="headers" :items="usersData" :disable-initial-sort="true" hide-actions
+                    class="elevation-1" :loading="!usersDataLoaded">
                     <template v-slot:items="props">
                         <tr>
                             <td @click="showUser(props.item)" class="">{{ props.item.name }}</td>
                             <td @click="showUser(props.item)" class="">{{ props.item.email }}</td>
                             <td @click="showUser(props.item)" class="">{{ props.item.phone }}</td>
                             <td class="justify-center align-items-center layout px-0">
-                                <a @click.prevent="showUser(props.item)"> <v-icon small class="mr-2" > mdi-eye </v-icon> </a>
-                                <a @click.prevent="editUser(props.item)" > <v-icon small class="mr-2" > edit </v-icon> </a>
-                                <a @click.prevent="deleteUserClicked(props.item)"> <v-icon small> delete </v-icon> </a>
+                                <a @click.prevent="showUser(props.item)">
+                                    <v-icon small class="mr-2"> mdi-eye </v-icon>
+                                </a>
+                                <a @click.prevent="editUser(props.item)">
+                                    <v-icon small class="mr-2"> edit </v-icon>
+                                </a>
+                                <a @click.prevent="deleteUserClicked(props.item)">
+                                    <v-icon small> delete </v-icon>
+                                </a>
                             </td>
                         </tr>
                     </template>
@@ -46,19 +49,16 @@
                     </template>
                 </v-data-table>
                 <div class="text-xs-center mt-2">
-                    <v-pagination
-                      v-model="thisPagination.current_page"
-                      :length="pagination.last_page"
-                      :total-visible="7"
-                      @input="paginationUpdated"
-                    ></v-pagination>
-                  </div>
+                    <v-pagination v-model="thisPagination.current_page" :length="pagination.last_page"
+                        :total-visible="7" @input="paginationUpdated"></v-pagination>
+                </div>
 
                 <v-dialog v-model="deleteUserDialogueVisible" max-width="290">
                     <v-card>
                         <v-card-title class="headline justify-content-center">Delete User</v-card-title>
 
-                        <v-card-text class="justify-content-center">Are You sure you want to delete this User?</v-card-text>
+                        <v-card-text class="justify-content-center">Are You sure you want to delete this User?
+                        </v-card-text>
 
                         <v-card-actions>
                             <v-container fluid>
@@ -66,7 +66,8 @@
                                     <button type="button" @click="deleteUserConfirmed" class="btn btn-danger mr-2">
                                         Yes, Delete It
                                     </button>
-                                    <button type="button" @click="deleteUserDialogueVisible = false" class="btn btn-success">
+                                    <button type="button" @click="deleteUserDialogueVisible = false"
+                                        class="btn btn-success">
                                         Not Sure
                                     </button>
                                 </v-layout>
@@ -132,16 +133,16 @@ export default {
         /////////////////////////////////////////////////
     }),
     computed: {
-        ...mapGetters({ 
+        ...mapGetters({
             pagination: 'pagination/pagination',
         }),
     },
-    created(){
+    created() {
         this.getUsersData()
     },
 
     methods: {
-        getUsersData () {
+        getUsersData() {
             var link = "api/users"
             var params = {
                 role: this.selectedRole,
@@ -149,7 +150,7 @@ export default {
                 limit: this.thisPagination.per_page
             }
             this.usersDataLoaded = false
-            axios.get(link, {params}).then( ({data}) => {
+            axios.get(link, { params }).then(({ data }) => {
                 var sanitizedData = data.data.map(i => {
                     i.data['selfLink'] = i.links.self
                     return i.data
@@ -158,35 +159,35 @@ export default {
                 this.usersDataLoaded = true
                 this.$store.dispatch('pagination/setPaginationData', data.meta)
 
-            } ).catch( ({ data }) => {
+            }).catch(({ data }) => {
                 this.usersDataLoaded = true
             })
         },
-        editUser(user){
-            this.$router.push({name: 'users.edit', params: { id: user.id }})
+        editUser(user) {
+            this.$router.push({ name: 'users.edit', params: { id: user.id } })
         },
-        showUser(user){
-            this.$router.push({name: 'users.show', params: { id: user.id }})
+        showUser(user) {
+            this.$router.push({ name: 'users.show', params: { id: user.id } })
         },
-        deleteUserClicked(user){
+        deleteUserClicked(user) {
             this.deleteUserDialogueVisible = true
             this.deleteUserCandidate = user
         },
-        deleteUserConfirmed(){
+        deleteUserConfirmed() {
             this.deleteUserDialogueVisible = false
-            axios.delete(this.deleteUserCandidate.selfLink).then( response => {
+            axios.delete(this.deleteUserCandidate.selfLink).then(response => {
                 this.deleteUserCandidate = null
                 this.getUsersData()
-            } ).catch(error => {
+            }).catch(error => {
             })
         },
-        paginationUpdated(){
+        paginationUpdated() {
             this.getUsersData()
         },
-        numOfRowsChanged(){
+        numOfRowsChanged() {
             this.getUsersData()
         },
-        selectedRoleChanged(){
+        selectedRoleChanged() {
             this.getUsersData()
         },
     }
