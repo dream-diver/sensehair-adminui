@@ -231,8 +231,12 @@
                                     <h4>Career Motivation</h4>
                                     <hr />
                                     <p>
-                                        {{this.showUserFields.motivation}}
+                                        {{ this.showUserFields.motivation }}
                                     </p>
+                                    <h4>Attached Files</h4>
+                                    <hr />
+                                    <div> {{this.showUserFields.resume && this.showUserFields.resume}} </div>
+                                    <a class="btn btn-success" target="_blank" :href="this.backUrl+'/resumes/'+this.showUserFields.resume">Download</a>
                                 </div>
                             </v-container>
                         </v-flex>
@@ -275,6 +279,7 @@ export default {
             icon: "pe-7s-users icon-gradient bg-tempting-azure",
         },
         email: "",
+        backUrl:process.env.VUE_APP_BACKEND_API_URL,
     }),
     computed: {
     },
