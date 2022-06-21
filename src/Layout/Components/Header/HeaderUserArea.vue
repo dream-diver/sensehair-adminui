@@ -4,73 +4,44 @@
             <div class="widget-content p-0">
                 <div class="widget-content-wrapper">
                     <div class="widget-content-left">
-                        <b-dropdown
-                            toggle-class="p-0 mr-2"
-                            menu-class="dropdown-menu-lg"
-                            variant="link"
-                            no-caret
-                            right
-                        >
+                        <b-dropdown toggle-class="p-0 mr-2" menu-class="dropdown-menu-lg" variant="link" no-caret right>
                             <span slot="button-content">
-                                <div
-                                    class="icon-wrapper icon-wrapper-alt rounded-circle"
-                                >
-                                    <img
-                                        width="42"
-                                        class="rounded-circle"
-                                        src="@/assets/images/avatars/user-blue.png"
-                                        alt
-                                    />
+                                <div class="icon-wrapper icon-wrapper-alt rounded-circle">
+                                    <img width="42" class="rounded-circle" src="@/assets/images/avatars/user-blue.png"
+                                        alt />
                                 </div>
                             </span>
                             <div class="dropdown-menu-header">
                                 <div class="dropdown-menu-header-inner bg-info">
-                                    <div
-                                        class="menu-header-image opacity-2 dd-header-bg-6"
-                                    ></div>
+                                    <div class="menu-header-image opacity-2 dd-header-bg-6"></div>
                                     <div class="menu-header-content text-left">
                                         <div class="widget-content p-0">
                                             <div class="widget-content-wrapper">
-                                                <div
-                                                    class="widget-content-left mr-3"
-                                                >
-                                                    <img
-                                                        width="42"
-                                                        class="rounded-circle"
-                                                        src="@/assets/images/avatars/user-blue.png"
-                                                        alt
-                                                    />
+                                                <div class="widget-content-left mr-3">
+                                                    <img width="42" class="rounded-circle"
+                                                        src="@/assets/images/avatars/user-blue.png" alt />
                                                 </div>
-                                                <div
-                                                    class="widget-content-left"
-                                                    @click="goToSettings"
-                                                >
+                                                <div class="widget-content-left" @click="goToSettings">
                                                     <div class="widget-heading">
                                                         {{
-                                                            loggedInUser.data
-                                                                ? loggedInUser
-                                                                      .data.name
-                                                                : ""
+                                                                loggedInUser.data
+                                                                    ? loggedInUser
+                                                                        .data.name
+                                                                    : ""
                                                         }}
                                                     </div>
-                                                    <div
-                                                        class="widget-subheading opacity-8"
-                                                    >
+                                                    <div class="widget-subheading opacity-8">
                                                         {{
-                                                            loggedInUser.data
-                                                                ? loggedInUser
-                                                                      .data.role
-                                                                : ""
+                                                                loggedInUser.data
+                                                                    ? loggedInUser
+                                                                        .data.role
+                                                                    : ""
                                                         }}
                                                     </div>
                                                 </div>
-                                                <div
-                                                    class="widget-content-right mr-2"
-                                                >
-                                                    <button
-                                                        @click="logout"
-                                                        class="btn-pill btn-shadow btn-shine btn btn-focus"
-                                                    >
+                                                <div class="widget-content-right mr-2">
+                                                    <button @click="logout"
+                                                        class="btn-pill btn-shadow btn-shine btn btn-focus">
                                                         Logout
                                                     </button>
                                                 </div>
@@ -84,12 +55,12 @@
                     <div class="widget-content-left ml-3 header-user-info">
                         <div class="widget-heading">
                             {{
-                                loggedInUser.data ? loggedInUser.data.name : ""
+                                    loggedInUser.data ? loggedInUser.data.name : ""
                             }}
                         </div>
                         <div class="widget-subheading">
                             {{
-                                loggedInUser.data ? loggedInUser.data.role : ""
+                                    loggedInUser.data ? loggedInUser.data.role : ""
                             }}
                         </div>
                     </div>
@@ -120,14 +91,15 @@ export default {
     computed: {
         ...mapGetters("auth", ["loggedInUser"]),
     },
-    mounted() {},
+    mounted() { },
     methods: {
         logout() {
             axios.post("api/logout").then((response) => {
-                this.$store.dispatch("auth/removeAuthToken");
-                this.$store.dispatch("auth/removeLoggedInUser");
-                this.$router.push({ name: "login" });
+                console.log("");
             });
+            this.$store.dispatch("auth/removeAuthToken");
+            this.$store.dispatch("auth/removeLoggedInUser");
+            this.$router.push({ name: "login" });
         },
         goToSettings() {
             this.$router.push({ name: "profile.settings" });
