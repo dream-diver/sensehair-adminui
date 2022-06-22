@@ -8,7 +8,7 @@
             </template>
         </page-title>
 
-        <layout-wrapper>
+        <layout-wrapper> 
             <v-container fluid>
                 <card heading="Edit a Service" subheading="" >
                 <v-form ref="form" v-model="formIsValid" lazy-validation>
