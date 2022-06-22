@@ -2,27 +2,23 @@
     <div>
         <page-title :heading="pageTitle.heading" :subheading="pageTitle.subheading" :icon="pageTitle.icon">
             <template v-slot:actions>
-                <button type="button" @click="$router.push({name: 'services.create'})" class="btn-shadow d-inline-flex align-items-center btn btn-success mr-2">
+                <button type="button" @click="$router.push({ name: 'services.create' })"
+                    class="btn-shadow d-inline-flex align-items-center btn btn-success mr-2">
                     <font-awesome-icon class="mr-2" icon="plus" /> Create Service
                 </button>
             </template>
         </page-title>
 
         <layout-wrapper>
-            <card :heading="this.pagination.message" subheading="" >
+            <card :heading="this.pagination.message" subheading="">
                 <template v-slot:action1>
                     <v-layout>
-                        <b-form-select v-model="thisPagination.per_page" @change="numOfRowsChanged" :options="pagination.numOfRowsOptions" size="sm" class="mt-0"></b-form-select>
+                        <b-form-select v-model="thisPagination.per_page" @change="numOfRowsChanged"
+                            :options="pagination.numOfRowsOptions" size="sm" class="mt-0"></b-form-select>
                     </v-layout>
                 </template>
-                <v-data-table
-                    :headers="headers"
-                    :items="servicesData"
-                    :disable-initial-sort="true"
-                    hide-actions
-                    class="elevation-1"
-                    :loading="!servicesDataLoaded"
-                    >
+                <v-data-table :headers="headers" :items="servicesData" :disable-initial-sort="true" hide-actions
+                    class="elevation-1" :loading="!servicesDataLoaded">
                     <template v-slot:items="props">
                         <tr>
                             <td @click="showService(props.item)" class="">{{ props.item.name }}</td>
@@ -30,9 +26,15 @@
                             <td @click="showService(props.item)" class="">€{{ props.item.stylist_price }}</td>
                             <td @click="showService(props.item)" class="">€{{ props.item.art_director_price }}</td>
                             <td class="justify-center align-items-center layout px-0">
-                                <a @click.prevent="showService(props.item)"> <v-icon small class="mr-2" > mdi-eye </v-icon> </a>
-                                <a @click.prevent="editService(props.item)" > <v-icon small class="mr-2" > edit </v-icon> </a>
-                                <a @click.prevent="deleteServiceClicked(props.item)"> <v-icon small> delete </v-icon> </a>
+                                <a @click.prevent="showService(props.item)">
+                                    <v-icon small class="mr-2"> mdi-eye </v-icon>
+                                </a>
+                                <a @click.prevent="editService(props.item)">
+                                    <v-icon small class="mr-2"> edit </v-icon>
+                                </a>
+                                <a @click.prevent="deleteServiceClicked(props.item)">
+                                    <v-icon small> delete </v-icon>
+                                </a>
                             </td>
                         </tr>
                     </template>
@@ -42,19 +44,16 @@
                     </template>
                 </v-data-table>
                 <div class="text-xs-center mt-2">
-                    <v-pagination
-                      v-model="thisPagination.current_page"
-                      :length="pagination.last_page"
-                      :total-visible="7"
-                      @input="paginationUpdated"
-                    ></v-pagination>
-                  </div>
+                    <v-pagination v-model="thisPagination.current_page" :length="pagination.last_page"
+                        :total-visible="7" @input="paginationUpdated"></v-pagination>
+                </div>
 
                 <v-dialog v-model="deleteServiceDialogueVisible" max-width="290">
                     <v-card>
                         <v-card-title class="headline justify-content-center">Delete Service</v-card-title>
 
-                        <v-card-text class="justify-content-center">Are You sure you want to delete this Service?</v-card-text>
+                        <v-card-text class="justify-content-center">Are You sure you want to delete this Service?
+                        </v-card-text>
 
                         <v-card-actions>
                             <v-container fluid>
@@ -62,7 +61,8 @@
                                     <button type="button" @click="deleteServiceConfirmed" class="btn btn-danger mr-2">
                                         Yes, Delete It
                                     </button>
-                                    <button type="button" @click="deleteServiceDialogueVisible = false" class="btn btn-success">
+                                    <button type="button" @click="deleteServiceDialogueVisible = false"
+                                        class="btn btn-success">
                                         Not Sure
                                     </button>
                                 </v-layout>
@@ -122,23 +122,27 @@ export default {
         /////////////////////////////////////////////////
     }),
     computed: {
-        ...mapGetters({ 
+        ...mapGetters({
             pagination: 'pagination/pagination',
         }),
+        ...mapGetters('auth', [
+            'loggedInUser'
+        ]),
     },
-    created(){
+    created() {
+        this.protection();
         this.getServicesData()
     },
 
     methods: {
-        getServicesData () {
+        getServicesData() {
             var link = "api/services"
             var params = {
                 page: this.thisPagination.current_page,
                 limit: this.thisPagination.per_page
             }
             this.servicesDataLoaded = false
-            axios.get(link, {params}).then( ({data}) => {
+            axios.get(link, { params }).then(({ data }) => {
                 var sanitizedData = data.data.map(i => {
                     i.data['selfLink'] = i.links.self
                     return i.data
@@ -147,34 +151,41 @@ export default {
                 this.servicesDataLoaded = true
                 this.$store.dispatch('pagination/setPaginationData', data.meta)
 
-            } ).catch( ({ data }) => {
+            }).catch(({ data }) => {
                 this.servicesDataLoaded = true
             })
         },
-        editService(service){
-            this.$router.push({name: 'services.edit', params: { id: service.id }})
+        editService(service) {
+            this.$router.push({ name: 'services.edit', params: { id: service.id } })
         },
-        showService(service){
-            this.$router.push({name: 'services.show', params: { id: service.id }})
+        showService(service) {
+            this.$router.push({ name: 'services.show', params: { id: service.id } })
         },
-        deleteServiceClicked(service){
+        deleteServiceClicked(service) {
             this.deleteServiceDialogueVisible = true
             this.deleteServiceCandidate = service
         },
-        deleteServiceConfirmed(){
+        deleteServiceConfirmed() {
             this.deleteServiceDialogueVisible = false
-            axios.delete(this.deleteServiceCandidate.selfLink).then( response => {
+            axios.delete(this.deleteServiceCandidate.selfLink).then(response => {
                 this.deleteServiceCandidate = null
                 this.getServicesData()
-            } ).catch(error => {
+            }).catch(error => {
             })
         },
-        paginationUpdated(){
+        paginationUpdated() {
             this.getServicesData()
         },
-        numOfRowsChanged(){
+        numOfRowsChanged() {
             this.getServicesData()
         },
+        protection() {
+            const loggedInRole = this.loggedInUser.data.role;
+            if (loggedInRole !== 'admin') {
+                // console.log("Not permitted")
+                this.$router.push('/');
+            }
+        }
     }
 };
 </script>

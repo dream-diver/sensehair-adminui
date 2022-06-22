@@ -41,9 +41,9 @@ export const stylistMenuLinks = [
         title: "Main Navigation",
     },
     {
-        title: "Bookings",
-        href: "/bookings",
-        icon: "pe-7s-notebook",
+        title: "Planner",
+        href: "/planner",
+        icon: "pe-7s-plane",
     },
 ];
 

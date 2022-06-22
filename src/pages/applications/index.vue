@@ -48,7 +48,8 @@
                         <v-card-actions>
                             <v-container fluid>
                                 <v-layout class="justify-content-center">
-                                    <button type="button" @click="deleteApplicationConfirmed" class="btn btn-danger mr-2">
+                                    <button type="button" @click="deleteApplicationConfirmed"
+                                        class="btn btn-danger mr-2">
                                         Yes, Delete It
                                     </button>
                                     <button type="button" @click="deleteApplicationDialogueVisible = false"
@@ -106,7 +107,13 @@ export default {
             { text: 'Actions', value: 'actions' },
         ],
     }),
+    computed: {
+        ...mapGetters('auth', [
+            'loggedInUser'
+        ]),
+    },
     created() {
+        this.protection();
         this.getApplications()
     },
     methods: {
@@ -141,6 +148,13 @@ export default {
             }).catch(error => {
             })
         },
+        protection() {
+            const loggedInRole = this.loggedInUser.data.role;
+            if (loggedInRole !== 'admin') {
+                // console.log("Not permitted")
+                this.$router.push('/');
+            }
+        }
     },
 };
 </script>

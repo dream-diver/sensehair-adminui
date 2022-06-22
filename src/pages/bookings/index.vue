@@ -138,8 +138,14 @@ export default {
         ...mapGetters({
             pagination: 'pagination/pagination',
         }),
+        ...mapGetters('auth', [
+            'loggedInUser'
+        ]),
+
     },
     created() {
+
+        this.protection();
         this.getBookingsData()
     },
 
@@ -207,6 +213,14 @@ export default {
         numOfRowsChanged() {
             this.getBookingsData()
         },
+
+        protection() {
+            const loggedInRole = this.loggedInUser.data.role;
+            if (loggedInRole !== 'admin') {
+                // console.log("Not permitted")
+                this.$router.push('/');
+            }
+        }
     }
 };
 </script>

@@ -36,11 +36,8 @@ export default {
         return {
             isOpen: false,
             sidebarActive: false,
-
             // menu: adminMenuLinks,
-
             collapsed: true,
-
             windowWidth: 0
         };
     },
@@ -52,9 +49,14 @@ export default {
             const loggedInRole = this.loggedInUser.data.role
             if (loggedInRole === 'admin') {
                 return adminMenuLinks
-            } else if (loggedInRole === 'stylist') {
+            } 
+            else if (loggedInRole === 'stylist') {
                 return stylistMenuLinks
-            } else {
+            } 
+            else if (loggedInRole === 'art_director') {
+                return stylistMenuLinks
+            } 
+            else {
                 return customerMenuLinks
             }
         }

@@ -2,35 +2,37 @@
     <div>
         <page-title :heading="pageTitle.heading" :subheading="pageTitle.subheading" :icon="pageTitle.icon">
             <template v-slot:actions>
-                <button type="button" @click="$router.push({name: 'promocodes.create'})" class="btn-shadow d-inline-flex align-items-center btn btn-success mr-2">
+                <button type="button" @click="$router.push({ name: 'promocodes.create' })"
+                    class="btn-shadow d-inline-flex align-items-center btn btn-success mr-2">
                     <font-awesome-icon class="mr-2" icon="plus" /> Create Promocode
                 </button>
             </template>
         </page-title>
 
         <layout-wrapper>
-            <card :heading="this.pagination.message" subheading="" >
+            <card :heading="this.pagination.message" subheading="">
                 <template v-slot:action1>
                     <v-layout>
-                        <b-form-select v-model="thisPagination.per_page" @change="numOfRowsChanged" :options="pagination.numOfRowsOptions" size="sm" class="mt-0"></b-form-select>
+                        <b-form-select v-model="thisPagination.per_page" @change="numOfRowsChanged"
+                            :options="pagination.numOfRowsOptions" size="sm" class="mt-0"></b-form-select>
                     </v-layout>
                 </template>
-                <v-data-table
-                    :headers="headers"
-                    :items="promocodesData"
-                    :disable-initial-sort="true"
-                    hide-actions
-                    class="elevation-1"
-                    :loading="!promocodesDataLoaded"
-                    >
+                <v-data-table :headers="headers" :items="promocodesData" :disable-initial-sort="true" hide-actions
+                    class="elevation-1" :loading="!promocodesDataLoaded">
                     <template v-slot:items="props">
                         <tr>
                             <td @click="showPromocode(props.item)" class="">{{ props.item.code }}</td>
                             <td @click="showPromocode(props.item)" class="">{{ props.item.discount }}%</td>
                             <td class="justify-center align-items-center layout px-0">
-                                <a @click.prevent="showPromocode(props.item)"> <v-icon small class="mr-2" > mdi-eye </v-icon> </a>
-                                <a @click.prevent="editPromocode(props.item)" > <v-icon small class="mr-2" > edit </v-icon> </a>
-                                <a @click.prevent="deletePromocodeClicked(props.item)"> <v-icon small> delete </v-icon> </a>
+                                <a @click.prevent="showPromocode(props.item)">
+                                    <v-icon small class="mr-2"> mdi-eye </v-icon>
+                                </a>
+                                <a @click.prevent="editPromocode(props.item)">
+                                    <v-icon small class="mr-2"> edit </v-icon>
+                                </a>
+                                <a @click.prevent="deletePromocodeClicked(props.item)">
+                                    <v-icon small> delete </v-icon>
+                                </a>
                             </td>
                         </tr>
                     </template>
@@ -40,19 +42,16 @@
                     </template>
                 </v-data-table>
                 <div class="text-xs-center mt-2">
-                    <v-pagination
-                      v-model="thisPagination.current_page"
-                      :length="pagination.last_page"
-                      :total-visible="7"
-                      @input="paginationUpdated"
-                    ></v-pagination>
-                  </div>
+                    <v-pagination v-model="thisPagination.current_page" :length="pagination.last_page"
+                        :total-visible="7" @input="paginationUpdated"></v-pagination>
+                </div>
 
                 <v-dialog v-model="deletePromocodeDialogueVisible" max-width="290">
                     <v-card>
                         <v-card-title class="headline justify-content-center">Delete Promocode</v-card-title>
 
-                        <v-card-text class="justify-content-center">Are You sure you want to delete this Promocode?</v-card-text>
+                        <v-card-text class="justify-content-center">Are You sure you want to delete this Promocode?
+                        </v-card-text>
 
                         <v-card-actions>
                             <v-container fluid>
@@ -60,7 +59,8 @@
                                     <button type="button" @click="deletePromocodeConfirmed" class="btn btn-danger mr-2">
                                         Yes, Delete It
                                     </button>
-                                    <button type="button" @click="deletePromocodeDialogueVisible = false" class="btn btn-success">
+                                    <button type="button" @click="deletePromocodeDialogueVisible = false"
+                                        class="btn btn-success">
                                         Not Sure
                                     </button>
                                 </v-layout>
@@ -117,23 +117,27 @@ export default {
         /////////////////////////////////////////////////
     }),
     computed: {
-        ...mapGetters({ 
+        ...mapGetters({
             pagination: 'pagination/pagination',
         }),
+        ...mapGetters('auth', [
+            'loggedInUser'
+        ]),
     },
-    created(){
+    created() {
+        this.protection();
         this.getPromocodesData()
     },
 
     methods: {
-        getPromocodesData () {
+        getPromocodesData() {
             var link = "api/promocodes"
             var params = {
                 page: this.thisPagination.current_page,
                 limit: this.thisPagination.per_page
             }
             this.promocodesDataLoaded = false
-            axios.get(link, {params}).then( ({data}) => {
+            axios.get(link, { params }).then(({ data }) => {
                 var sanitizedData = data.data.map(i => {
                     i.data['selfLink'] = i.links.self
                     return i.data
@@ -142,34 +146,41 @@ export default {
                 this.promocodesDataLoaded = true
                 this.$store.dispatch('pagination/setPaginationData', data.meta)
 
-            } ).catch( ({ data }) => {
+            }).catch(({ data }) => {
                 this.promocodesDataLoaded = true
             })
         },
-        editPromocode(promocode){
-            this.$router.push({name: 'promocodes.edit', params: { id: promocode.id }})
+        editPromocode(promocode) {
+            this.$router.push({ name: 'promocodes.edit', params: { id: promocode.id } })
         },
-        showPromocode(promocode){
-            this.$router.push({name: 'promocodes.show', params: { id: promocode.id }})
+        showPromocode(promocode) {
+            this.$router.push({ name: 'promocodes.show', params: { id: promocode.id } })
         },
-        deletePromocodeClicked(promocode){
+        deletePromocodeClicked(promocode) {
             this.deletePromocodeDialogueVisible = true
             this.deletePromocodeCandidate = promocode
         },
-        deletePromocodeConfirmed(){
+        deletePromocodeConfirmed() {
             this.deletePromocodeDialogueVisible = false
-            axios.delete(this.deletePromocodeCandidate.selfLink).then( response => {
+            axios.delete(this.deletePromocodeCandidate.selfLink).then(response => {
                 this.deletePromocodeCandidate = null
                 this.getPromocodesData()
-            } ).catch(error => {
+            }).catch(error => {
             })
         },
-        paginationUpdated(){
+        paginationUpdated() {
             this.getPromocodesData()
         },
-        numOfRowsChanged(){
+        numOfRowsChanged() {
             this.getPromocodesData()
         },
+        protection() {
+            const loggedInRole = this.loggedInUser.data.role;
+            if (loggedInRole !== 'admin') {
+                // console.log("Not permitted")
+                this.$router.push('/');
+            }
+        }
     }
 };
 </script>

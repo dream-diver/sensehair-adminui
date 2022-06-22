@@ -136,8 +136,12 @@ export default {
         ...mapGetters({
             pagination: 'pagination/pagination',
         }),
+        ...mapGetters('auth', [
+            'loggedInUser'
+        ]),
     },
     created() {
+        this.protection();
         this.getUsersData()
     },
 
@@ -190,6 +194,12 @@ export default {
         selectedRoleChanged() {
             this.getUsersData()
         },
+        protection() {
+            const loggedInRole = this.loggedInUser.data.role;
+            if (loggedInRole !== 'admin') {
+                this.$router.push('/');
+            }
+        }
     }
 };
 </script>
