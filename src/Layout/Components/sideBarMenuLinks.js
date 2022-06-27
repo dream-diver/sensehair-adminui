@@ -45,6 +45,11 @@ export const stylistMenuLinks = [
         href: "/planner",
         icon: "pe-7s-plane",
     },
+    {
+        title: "Bookings",
+        href: "/bookings",
+        icon: "pe-7s-notebook",
+    },
 ];
 
 export const customerMenuLinks = [

@@ -141,12 +141,17 @@ export default {
         ...mapGetters('auth', [
             'loggedInUser'
         ]),
-
     },
     created() {
 
         this.protection();
-        this.getBookingsData()
+        const st = JSON.parse(localStorage.getItem('vuex'));
+        if (st.auth.loggedInUser.data.role === 'admin') {
+            this.getBookingsData()
+        }
+        else {
+            this.getOwnBookings(st.auth.loggedInUser.data.id);
+        }
     },
 
     methods: {
@@ -156,6 +161,27 @@ export default {
                 page: this.thisPagination.current_page,
                 limit: this.thisPagination.per_page,
             }
+            this.bookingsDataLoaded = false
+            axios.get(link, { params }).then(({ data }) => {
+                var sanitizedData = data.data.map(i => {
+                    i.data['selfLink'] = i.links.self
+                    return i.data
+                })
+                this.bookingsData = sanitizedData
+                this.bookingsDataLoaded = true
+                this.$store.dispatch('pagination/setPaginationData', data.meta)
+
+            }).catch(({ data }) => {
+                this.bookingsDataLoaded = true
+            })
+        },
+        getOwnBookings(id) {
+            var link = "api/bookings";
+            var params = {
+                server_id: id,
+                page: this.thisPagination.current_page,
+                limit: this.thisPagination.per_page,
+            };
             this.bookingsDataLoaded = false
             axios.get(link, { params }).then(({ data }) => {
                 var sanitizedData = data.data.map(i => {
@@ -216,8 +242,7 @@ export default {
 
         protection() {
             const loggedInRole = this.loggedInUser.data.role;
-            if (loggedInRole !== 'admin') {
-                // console.log("Not permitted")
+            if (loggedInRole !== 'admin' && loggedInRole !== 'stylist') {
                 this.$router.push('/');
             }
         }
